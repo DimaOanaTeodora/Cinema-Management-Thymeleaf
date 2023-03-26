@@ -22,8 +22,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.backend.cinema.domain.Schedule;
 import com.backend.cinema.exception.ScheduleNotFoundException;
-import com.backend.cinema.model.Schedule;
 import com.backend.cinema.repository.ScheduleRepository;
 
 @ExtendWith(MockitoExtension.class)

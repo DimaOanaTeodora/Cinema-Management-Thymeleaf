@@ -19,12 +19,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Reservation;
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.Seat;
+import com.backend.cinema.domain.User;
 import com.backend.cinema.exception.ReservationNotFoundException;
-import com.backend.cinema.model.Broadcast;
-import com.backend.cinema.model.Reservation;
-import com.backend.cinema.model.Room;
-import com.backend.cinema.model.Seat;
-import com.backend.cinema.model.User;
 import com.backend.cinema.repository.ReservationRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +38,7 @@ public class ReservationServiceTest {
 
 	@Test
 	void whenReservationDoesntExist_create() throws ParseException {
-		User user = new User(1, "oanadima26@gmail.com", "Dima", "Oana-Teodora");
+		User user = new User(1, "oanadima26@gmail.com", "1234");
 		Broadcast broadcast = new Broadcast();
 		broadcast.setId(1);
 		Room room = new Room();
@@ -102,7 +102,7 @@ public class ReservationServiceTest {
 	@Test
 	void whenReservationExists_getReservation_returnsTheReservation() throws ParseException {
 		// Arrange
-		User user = new User(1, "oanadima26@gmail.com", "Dima", "Oana-Teodora");
+		User user = new User(1, "oanadima26@gmail.com", "1234");
 		Broadcast broadcast = new Broadcast();
 		broadcast.setId(1);
 		Room room = new Room();
@@ -140,7 +140,7 @@ public class ReservationServiceTest {
 
 	@Test
 	public void delete_reservation() throws ParseException {
-		User user = new User(1, "oanadima26@gmail.com", "Dima", "Oana-Teodora");
+		User user = new User(1, "oanadima26@gmail.com", "1234");
 		Broadcast broadcast = new Broadcast();
 		broadcast.setId(1);
 		Room room = new Room();

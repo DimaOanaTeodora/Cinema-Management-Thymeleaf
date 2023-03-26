@@ -16,9 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.backend.cinema.domain.User;
 import com.backend.cinema.exception.DuplicateUserException;
 import com.backend.cinema.exception.UserNotFoundException;
-import com.backend.cinema.model.User;
 import com.backend.cinema.repository.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,8 +35,7 @@ public class UserServiceTest {
 		// Arrange
 		User user = new User();
 		user.setEmail("oanadima26@gmail.com");
-		user.setFirstName("Oana-Teodora");
-		user.setLastName("Dima");
+		user.setPassword("1234");
 		when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
 		// Act
@@ -53,13 +52,11 @@ public class UserServiceTest {
 	void whenUserDoesntExist_create() {
 		User user = new User();
 		user.setEmail("oanadima26@gmail.com");
-		user.setFirstName("Oana-Teodora");
-		user.setLastName("Dima");
+		user.setPassword("1234");
 
 		User savedUser = new User();
 		savedUser.setEmail("oanadima26@gmail.com");
-		savedUser.setFirstName("Oana-Teodora");
-		savedUser.setLastName("Dima");
+		user.setPassword("1234");
 		savedUser.setId(1);
 
 		when(userRepository.save(user)).thenReturn(savedUser);
@@ -70,11 +67,8 @@ public class UserServiceTest {
 		// Assert
 		assertNotNull(result);
 		assertEquals(savedUser.getId(), result.getId());
-		assertEquals(savedUser.getFirstName(), result.getFirstName());
-		assertEquals(user.getFirstName(), result.getFirstName());
-
-		assertEquals(savedUser.getLastName(), result.getLastName());
-		assertEquals(user.getLastName(), result.getLastName());
+		assertEquals(savedUser.getPassword(), result.getPassword());
+		assertEquals(user.getPassword(), result.getPassword());
 
 		assertEquals(savedUser.getEmail(), result.getEmail());
 		assertEquals(user.getEmail(), result.getEmail());
@@ -98,8 +92,7 @@ public class UserServiceTest {
 		// Arrange
 		User user = new User();
 		user.setEmail("oanadima26@gmail.com");
-		user.setFirstName("Oana-Teodora");
-		user.setLastName("Dima");
+		user.setPassword("1234");
 		user.setId(1);
 		when(userRepository.findById(1)).thenReturn(Optional.of(user));
 
@@ -113,7 +106,7 @@ public class UserServiceTest {
 
 	@Test
 	public void delete_user() {
-		User user = new User(1, "oanadima26@gmail.com", "Dima", "Oana-Teodora");
+		User user = new User(1, "oanadima26@gmail.com", "1234");
 		when(userRepository.findById(1)).thenReturn(Optional.of(user));
 
 		userService.deleteUser(1);

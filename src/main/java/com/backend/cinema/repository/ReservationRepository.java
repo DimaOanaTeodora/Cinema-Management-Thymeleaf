@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.backend.cinema.model.Broadcast;
-import com.backend.cinema.model.Reservation;
+import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 

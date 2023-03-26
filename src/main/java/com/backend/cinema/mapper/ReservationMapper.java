@@ -2,8 +2,8 @@ package com.backend.cinema.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.backend.cinema.domain.Reservation;
 import com.backend.cinema.dto.ReservationRequest;
-import com.backend.cinema.model.Reservation;
 
 @Component
 public class ReservationMapper {

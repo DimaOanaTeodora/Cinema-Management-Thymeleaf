@@ -4,52 +4,25 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Movie;
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.Schedule;
+import com.backend.cinema.domain.User;
 import com.backend.cinema.exception.BroadcastNotFoundException;
 import com.backend.cinema.exception.ScheduleNotFoundException;
 import com.backend.cinema.exception.UserNotFoundException;
-import com.backend.cinema.model.Broadcast;
-import com.backend.cinema.model.Movie;
-import com.backend.cinema.model.Room;
-import com.backend.cinema.model.Schedule;
-import com.backend.cinema.model.User;
 import com.backend.cinema.repository.BroadcastRepository;
 
-@Service
-public class BroadcastService {
+public interface BroadcastService {
 
-	private BroadcastRepository broadcastRepository;
+	
+	public Broadcast updateBroadcastRoom(Broadcast oldBroadcast, Room newRoom);
 
-	public BroadcastService(BroadcastRepository broadcastRepository) {
-		this.broadcastRepository = broadcastRepository;
-	}
+	public Broadcast createBroadcast(Broadcast broadcast, Room room, Movie movie);
 
-	public Broadcast updateBroadcastRoom(Broadcast oldBroadcast, Room newRoom) {
-		oldBroadcast.setRoom(newRoom);
-		return broadcastRepository.save(oldBroadcast);
-	}
+	public Broadcast getBroadcast(Integer id);
 
-	public Broadcast createBroadcast(Broadcast broadcast, Room room, Movie movie) {
-		broadcast.setRoom(room);
-		broadcast.setMovie(movie);
-		return broadcastRepository.save(broadcast);
-	}
-
-	public Broadcast getBroadcast(Integer id) {
-		Optional<Broadcast> broadcastOptional = broadcastRepository.findById(id);
-		if (broadcastOptional.isPresent()) {
-			return broadcastOptional.get();
-		} else {
-			throw new BroadcastNotFoundException(id);
-		}
-	}
-
-	public void deleteBroadcast(Integer id) {
-		Optional<Broadcast> broadcastOptional = broadcastRepository.findById(id);
-		if (broadcastOptional.isPresent()) {
-			broadcastRepository.delete(broadcastOptional.get());
-		} else {
-			throw new BroadcastNotFoundException(id);
-		}
-	}
+	public void deleteBroadcast(Integer id);
 
 }

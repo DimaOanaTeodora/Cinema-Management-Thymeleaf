@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.Seat;
 import com.backend.cinema.dto.RoomRequest;
 import com.backend.cinema.mapper.RoomMapper;
-import com.backend.cinema.model.Room;
-import com.backend.cinema.model.Seat;
 import com.backend.cinema.service.RoomService;
 import com.backend.cinema.service.SeatService;
 

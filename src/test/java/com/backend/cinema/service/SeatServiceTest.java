@@ -10,9 +10,8 @@ import org.mockito.junit.MockitoRule;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.quality.Strictness;
 
-import com.backend.cinema.model.Room;
-import com.backend.cinema.model.Seat;
-import com.backend.cinema.model.Seat;
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.Seat;
 import com.backend.cinema.repository.SeatRepository;
 import com.backend.cinema.repository.SeatRepository;
 

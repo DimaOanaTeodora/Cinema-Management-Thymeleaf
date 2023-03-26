@@ -2,8 +2,8 @@ package com.backend.cinema.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.backend.cinema.domain.Room;
 import com.backend.cinema.dto.RoomRequest;
-import com.backend.cinema.model.Room;
 
 @Component
 public class RoomMapper {

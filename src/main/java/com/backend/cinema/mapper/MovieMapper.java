@@ -2,8 +2,8 @@ package com.backend.cinema.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.backend.cinema.domain.Movie;
 import com.backend.cinema.dto.MovieRequest;
-import com.backend.cinema.model.Movie;
 
 @Component
 public class MovieMapper {

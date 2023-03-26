@@ -2,8 +2,8 @@ package com.backend.cinema.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.backend.cinema.domain.Broadcast;
 import com.backend.cinema.dto.BroadcastRequest;
-import com.backend.cinema.model.Broadcast;
 
 @Component
 public class BroadcastMapper {

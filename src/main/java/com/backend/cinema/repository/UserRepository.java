@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.backend.cinema.model.User;
+import com.backend.cinema.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 

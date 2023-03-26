@@ -1,4 +1,4 @@
-package com.backend.cinema.model;
+package com.backend.cinema.domain;
 
 import java.util.Date;
 import java.util.List;

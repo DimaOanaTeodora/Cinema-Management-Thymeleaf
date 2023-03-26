@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Movie;
+import com.backend.cinema.domain.Reservation;
+import com.backend.cinema.domain.Room;
 import com.backend.cinema.dto.BroadcastRequest;
 import com.backend.cinema.mapper.BroadcastMapper;
-
-import com.backend.cinema.model.Broadcast;
-import com.backend.cinema.model.Movie;
-import com.backend.cinema.model.Reservation;
-import com.backend.cinema.model.Room;
 import com.backend.cinema.service.BroadcastService;
 import com.backend.cinema.service.MovieService;
 import com.backend.cinema.service.ReservationService;

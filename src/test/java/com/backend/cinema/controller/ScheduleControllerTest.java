@@ -16,10 +16,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Schedule;
 import com.backend.cinema.dto.ScheduleRequest;
 import com.backend.cinema.mapper.ScheduleMapper;
-import com.backend.cinema.model.Broadcast;
-import com.backend.cinema.model.Schedule;
 import com.backend.cinema.service.BroadcastService;
 import com.backend.cinema.service.ScheduleService;
 import com.fasterxml.jackson.databind.ObjectMapper;

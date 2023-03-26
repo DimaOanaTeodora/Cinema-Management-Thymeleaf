@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.backend.cinema.domain.Room;
 import com.backend.cinema.exception.RoomNotFoundException;
-import com.backend.cinema.model.Room;
 import com.backend.cinema.repository.RoomRepository;
 
 import java.util.Optional;

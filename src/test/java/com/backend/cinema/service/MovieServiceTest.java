@@ -15,9 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.backend.cinema.domain.Movie;
+import com.backend.cinema.domain.MovieType;
 import com.backend.cinema.exception.MovieNotFoundException;
-import com.backend.cinema.model.Movie;
-import com.backend.cinema.model.MovieType;
 import com.backend.cinema.repository.MovieRepository;
 
 

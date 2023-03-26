@@ -1,8 +1,8 @@
 package com.backend.cinema.controller;
 
+import com.backend.cinema.domain.User;
 import com.backend.cinema.dto.UserRequest;
 import com.backend.cinema.mapper.UserMapper;
-import com.backend.cinema.model.User;
 import com.backend.cinema.service.ReservationService;
 import com.backend.cinema.service.UserService;
 import com.fasterxml.jackson.databind.*;
@@ -34,24 +34,24 @@ public class UserControllerTest {
 
 	@Test
 	public void createUser() throws Exception {
-		UserRequest request = new UserRequest("oanadima26@gmail.com", "Dima", "Oana-Teodora");
+		UserRequest request = new UserRequest("oanadima26@gmail.com", "1234");
 
-		when(userService.createUser(any())).thenReturn(new User(1, "oanadima26@gmail.com", "Dima", "Oana-Teodora"));
+		when(userService.createUser(any())).thenReturn(new User(1, "oanadima26@gmail.com", "1234"));
 
 		mockMvc.perform(
 				post("/users").contentType("application/json").content(objectMapper.writeValueAsString(request)))
-				.andExpect(status().isCreated()).andExpect(jsonPath("$.lastName").value(request.getLastName()))
-				.andExpect(jsonPath("$.firstName").value(request.getFirstName()))
+				.andExpect(status().isCreated())
+				.andExpect(jsonPath("$.password").value(request.getPassword()))
 				.andExpect(jsonPath("$.email").value(request.getEmail()));
 	}
 
 	@Test
 	public void getUser() throws Exception {
-		when(userService.getUser(any())).thenReturn(new User(1, "oanadima26@gmail.com", "Dima", "Oana-Teodora"));
+		when(userService.getUser(any())).thenReturn(new User(1, "oanadima26@gmail.com", "1234"));
 
 		mockMvc.perform(get("/users/{id}", 1).contentType("application/json")).andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(1)).andExpect(jsonPath("$.lastName").value("Dima"))
-				.andExpect(jsonPath("$.firstName").value("Oana-Teodora"))
+				.andExpect(jsonPath("$.id").value(1))
+				.andExpect(jsonPath("$.password").value("1234"))
 				.andExpect(jsonPath("$.email").value("oanadima26@gmail.com"));
 
 	}

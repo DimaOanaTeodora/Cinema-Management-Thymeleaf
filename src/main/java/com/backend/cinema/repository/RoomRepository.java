@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.backend.cinema.model.Room;
-import com.backend.cinema.model.User;
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.User;
 
 public interface RoomRepository extends JpaRepository<Room, Integer>{
 

@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.cinema.model.Broadcast;
-import com.backend.cinema.model.Reservation;
-import com.backend.cinema.model.Room;
-import com.backend.cinema.model.Seat;
+import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Reservation;
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.Seat;
 import com.backend.cinema.service.BroadcastService;
 import com.backend.cinema.service.ReservationService;
 import com.backend.cinema.service.SeatService;

@@ -1,4 +1,4 @@
-package com.backend.cinema.model;
+package com.backend.cinema.domain;
 
 import java.util.List;
 
@@ -15,8 +15,7 @@ public class User {
 	private int id;
 
 	private String email;
-	private String lastName;
-	private String firstName;
+	private String password;
 
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
@@ -25,23 +24,20 @@ public class User {
 	public User() {
 	}
 
-	public User(int id, String email, String lastName, String firstName) {
+	public User(int id, String email, String password) {
 		this.id = id;
 		this.email = email;
-		this.lastName = lastName;
-		this.firstName = firstName;
+		this.password = password;
 	}
 
-	public User(String email, String lastName, String firstName) {
-		super();
+	public User(String email, String password) {
 		this.email = email;
-		this.lastName = lastName;
-		this.firstName = firstName;
+		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
 	}
 
 	public List<Reservation> getReservations() {
@@ -68,20 +64,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
