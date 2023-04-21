@@ -20,15 +20,8 @@ import com.backend.cinema.dto.MovieRequest;
 import com.backend.cinema.mapper.MovieMapper;
 import com.backend.cinema.service.MovieService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 @RestController
 @RequestMapping("/movies")
-@Api(value = "/movies", tags = "Movies")
 public class MovieController {
 
 	private MovieService movieService;
@@ -40,24 +33,16 @@ public class MovieController {
 	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ApiOperation(value = "Create a movie", notes = "Creates a new movie based on the information received in the request")
-	@ApiResponses(value = {
-			@ApiResponse(code = 201, message = "The Movie was successfully created based on the received request"),
-			@ApiResponse(code = 400, message = "Validation error on the received request") })
 	public ResponseEntity<Movie> create(
-			@Valid @RequestBody @ApiParam(name = "movie", value = "Movie details", required = true) MovieRequest movieRequest) {
+			@Valid @RequestBody MovieRequest movieRequest) {
 		Movie savedMovie = movieService.createMovie(movieMapper.movieRequestToMovie(movieRequest));
 		return ResponseEntity.created(URI.create("/movies/" + savedMovie.getId())).body(savedMovie);
 	}
 
 	@PostMapping(path = "/all", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	@ApiOperation(value = "Create movies", notes = "Creates new movies based on list of movies received in the request")
-	@ApiResponses(value = {
-			@ApiResponse(code = 201, message = "The movies were successfully created based on the received request"),
-			@ApiResponse(code = 400, message = "Validation error on the received request") })
 	public ResponseEntity<List<Movie>> createBulk(
-			@Valid @RequestBody @ApiParam(name = "movies", value = "List with movies details", required = true) List<MovieRequest> listMovieRequest) {
+			@Valid @RequestBody  List<MovieRequest> listMovieRequest) {
 		for (MovieRequest movieRequest : listMovieRequest) {
 			Movie savedMovie = movieService.createMovie(movieMapper.movieRequestToMovie(movieRequest));
 		}
@@ -65,9 +50,6 @@ public class MovieController {
 	}
 
 	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ApiOperation(value = "Get details for a movie", notes = "Get the details for a movie based on the information from the database and the movie's id")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "The movie was found"),
-			@ApiResponse(code = 404, message = "The movie was not found") })
 	public ResponseEntity<Movie> getMovie(@PathVariable Integer id) {
 		return ResponseEntity.ok().body(movieService.getMovie(id));
 	}

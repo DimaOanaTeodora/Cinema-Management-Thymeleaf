@@ -18,14 +18,8 @@ import com.backend.cinema.service.BroadcastService;
 import com.backend.cinema.service.ReservationService;
 import com.backend.cinema.service.SeatService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 @RestController
 @RequestMapping("/seats")
-@Api(value = "/seats", tags = "Seats")
 public class SeatController {
 
 	private SeatService seatService;
@@ -40,9 +34,6 @@ public class SeatController {
 	}
 
 	@GetMapping(path = "/{broadcastId}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ApiOperation(value = "Get the free seats", notes = "Get the list of free seats for a certain broadcast based on the broadcast id")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "The seat was found"),
-			@ApiResponse(code = 404, message = "The seat was not found") })
 	public ResponseEntity<Dictionary<Room, List<Seat>>> getFreeSeats(@PathVariable Integer broadcastId) {
 		Broadcast broadcast = broadcastService.getBroadcast(broadcastId);
 		List<Reservation> reservations = reservationService.getAllReservationsByBroadcast(broadcastId);

@@ -16,22 +16,16 @@ import com.backend.cinema.repository.security.UserRepository;
 import com.backend.cinema.service.ReservationService;
 import com.backend.cinema.service.UserService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.*;
 
-import io.swagger.annotations.*;
-
 import org.springframework.http.*;
 
 @RestController
 @RequestMapping("/users")
-@Api(value = "/users", tags = "Users")
 public class UserController {
 
 	private UserService userService;
@@ -80,17 +74,11 @@ public class UserController {
 	}*/
 
 	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ApiOperation(value = "Get details for a user", notes = "Get the details for a user based on the information from the database and the user's id")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "The user was found"),
-			@ApiResponse(code = 404, message = "The user was not found") })
 	public ResponseEntity<User> getUser(@PathVariable Integer id) {
 		return ResponseEntity.ok().body(userService.getUser(id));
 	}
 
 	@DeleteMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ApiOperation(value = "Delete a user", notes = "Delete a user by id from the database and it's reservations")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "The user was found"),
-			@ApiResponse(code = 404, message = "The user was not found") })
 	public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
 		List<Reservation> reservations = userService.getReservationByUser(id);
 		for (Reservation value : reservations) {
