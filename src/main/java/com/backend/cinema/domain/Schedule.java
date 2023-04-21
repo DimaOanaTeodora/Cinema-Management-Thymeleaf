@@ -7,10 +7,21 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "schedule")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class Schedule {
 
 	@Id
@@ -27,62 +38,5 @@ public class Schedule {
 	private Date date;
 
 	@OneToMany(mappedBy = "schedule")
-	@JsonIgnore
 	private List<Broadcast> broadcasts;
-
-	public Schedule() {
-	}
-
-	public Schedule(LocalTime startingHour, LocalTime endingHour, Date date) {
-		this.startingHour = startingHour;
-		this.endingHour = endingHour;
-		this.date = date;
-	}
-
-	@Override
-	public String toString() {
-		return "Schedule [id=" + id + ", startingHour=" + startingHour + ", endingHour=" + endingHour + ", date=" + date
-				+ "]";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public LocalTime getStartingHour() {
-		return startingHour;
-	}
-
-	public void setStartingHour(LocalTime startingHour) {
-		this.startingHour = startingHour;
-	}
-
-	public LocalTime getEndingHour() {
-		return endingHour;
-	}
-
-	public void setEndingHour(LocalTime endingHour) {
-		this.endingHour = endingHour;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public List<Broadcast> getBroadcasts() {
-		return broadcasts;
-	}
-
-	public void setBroadcasts(List<Broadcast> broadcasts) {
-		this.broadcasts = broadcasts;
-	}
-
 }

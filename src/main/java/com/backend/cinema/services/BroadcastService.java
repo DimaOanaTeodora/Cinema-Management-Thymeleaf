@@ -1,0 +1,23 @@
+package com.backend.cinema.services;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Movie;
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.Schedule;
+
+public interface BroadcastService {
+
+	
+	public Broadcast updateBroadcastRoom(Broadcast oldBroadcast, Room newRoom);
+
+	public Broadcast createBroadcast(Broadcast broadcast, Room room, Movie movie);
+
+	public Broadcast getBroadcast(Integer id);
+
+	public void deleteBroadcast(Integer id);
+
+}

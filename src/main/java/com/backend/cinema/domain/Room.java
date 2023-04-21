@@ -6,8 +6,19 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "room")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class Room {
 
 	@Id
@@ -18,65 +29,9 @@ public class Room {
 	private int capacity;
 
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL) 
-	//@JsonIgnore
 	private List<Seat> seats;
 
 	@OneToMany(mappedBy = "room")
-	@JsonIgnore
 	private List<Broadcast> broadcasts;
-
-	public Room() {
-	}
-
-	public Room(String name, int capacity) {
-		super();
-		this.name = name;
-		this.capacity = capacity;
-	}
-
-	@Override
-	public String toString() {
-		return "Room [id=" + id + ", name=" + name + ", capacity=" + capacity + "]";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
-
-	public List<Seat> getSeats() {
-		return seats;
-	}
-
-	public void setSeats(List<Seat> seats) {
-		this.seats = seats;
-	}
-
-	public List<Broadcast> getBroadcasts() {
-		return broadcasts;
-	}
-
-	public void setBroadcasts(List<Broadcast> broadcasts) {
-		this.broadcasts = broadcasts;
-	}
 
 }

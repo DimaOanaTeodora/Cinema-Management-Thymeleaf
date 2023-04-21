@@ -4,8 +4,19 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "movie")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class Movie {
 
 	@Id
@@ -17,52 +28,6 @@ public class Movie {
 	private MovieType type;
 
 	@OneToOne(mappedBy = "movie")
-	@JsonIgnore 
 	private Broadcast broadcast;
-
-	public Movie() {
-	}
-
-	public Movie(String name, MovieType type) {
-		this.name = name;
-		this.type = type;
-	}
-
-	@Override
-	public String toString() {
-		return "Movie [iId=" + id + ", name=" + name + ", type=" + type + "]";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public MovieType getType() {
-		return type;
-	}
-
-	public void setType(MovieType type) {
-		this.type = type;
-	}
-
-	public Broadcast getBroadcast() {
-		return broadcast;
-	}
-
-	public void setBroadcast(Broadcast broadcast) {
-		this.broadcast = broadcast;
-	}
 
 }

@@ -1,36 +1,44 @@
 # :cinema: Platforma pentru management-ul rezervarilor la cinema 
 Documentatie
 
-## Run 
-1. Login page: http://localhost:8080/login
+## Run / APIs
+1. http://localhost:8080/login => index
 2. 
 
 ## :clipboard: MySQL database - Baza de date - entitati
 ![DB schema](https://github.com/DimaOanaTeodora/Cinema-Management-Backend/blob/main/DB.png?raw=true)
 
+Adaugare filme printr-un JSON cu o lista de filme
+Adaugare sala + generare automata locuri din sala in ordine crescatoare incepand cu 1
+Adaugare sali printr-un JSON cu o lista de sali + enerare automata locuri din sala in ordine crescatoare incepand cu 1
+Adaugare programare film intr-o anumita sala, la o anumita data si ora
+
+Modificarea salii in care un film este programat
+Afisarea informatiilor unei sali (cu tot cu locurile autogenerate) + not found exception
+Afisarea informatiilor despre un film + not found exception
+Afisarea informatiilor unei sali (cu tot cu locurile autogenerate) + not found exception
+Stergerea unei programari a unui film
+
 ## :briefcase: REST ENDPOINTS - CRUD - Functionalitati
+### LOGIN & REGISTER
+username + password 
+
 ### CREATE
-1. Adaugare film
-2. Adaugare filme printr-un JSON cu o lista de filme
-3. Adaugare sala + generare automata locuri din sala in ordine crescatoare incepand cu 1
-4. Adaugare sali printr-un JSON cu o lista de sali + enerare automata locuri din sala in ordine crescatoare incepand cu 1
-5. Adaugare user + duplicate exception pentru email
-6. Adaugarea unei rezervari facuta de un user, pentru un anumit film, la o anumita data si ora, cu un numar de locuri dat
-7. Adaugare programare film intr-o anumita sala, la o anumita data si ora
+1. Adaugare film (broadcast)
+2. Adaugare user
+3. Adaugarea unei rezervari facuta de un user, pentru un anumit film, la o anumita data si ora, cu un numar de locuri dat
+   
 ### UPDATE
 1. Modificarea programului (data si ora de inceput/sfarsit) a unui film 
-2. Modificarea salii in care un film este programat
+   
 ### GET
-1. Afisarea locurilor libere la un anumit film programat sa ruleze + not found exception
-2. Afisarea informatiilor unui user + not found exception
-3. Afisarea informatiilor unei sali (cu tot cu locurile autogenerate) + not found exception
-4. Afisarea informatiilor despre programarea unui film + not found exception
-5. Afisarea informatiilor despre o rezervare + not found exception
-6. Afisarea informatiilor despre un film + not found exception
+1. Afisarea locurilor libere la un anumit film programat sa ruleze 
+2. Afisarea informatiilor numelui userului curent
+3. Afisarea rezervarilor mele 
+
 ### DELETE
 1. Stergerea unui user si a rezervarilor aferente acestuia
 2. Anularea unei rezervari
-3. Stergerea unei programari a unui film
    
 ## :next_track_button: Testing
 Code coverage total obtinut 69.7%

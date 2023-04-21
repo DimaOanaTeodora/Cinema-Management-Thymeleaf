@@ -1,11 +1,10 @@
 package com.backend.cinema.configuration;
 
 
-import com.backend.cinema.service.security.JpaUserDetailsService;
+import com.backend.cinema.services.security.JpaUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-//import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +15,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-//@EnableMethodSecurity
 @Profile("mysql")
 public class SecurityJpaConfig {
 

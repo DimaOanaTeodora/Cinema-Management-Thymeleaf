@@ -1,60 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>AWBD Auction</title>
-
-
-
-    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
-    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/webjars/font-awesome/6.2.0/css/all.min.css"/>
-
-
-
-
-
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="nav-link" th:href="@{'/auction'}"> <i class="fas fa-home mx-1"></i>  </a>
-            <a class="nav-link" th:href="@{'/auction'}"> <i class="fas fa-user mx-1"></i>  </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto topnav">
-
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{'/products'}">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white" type="button" th:href="@{'/products/form'}" >&emsp;Sell&emsp;</a>
-                    </li>&nbsp;
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white" type="button" href="#" >Sign In</a>
-                    </li>&nbsp;
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white" type="button" th:href="@{'/participant/form'}" >Register</a>
-                    </li>
-                </ul>
-            </div>
-
-
-        </nav>
-    </div>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Cinema reservation platform</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+		crossorigin="anonymous">
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+		crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
 </head>
 <body>
-    
+	<div class="container my-2">
+		<div class="card">
+			<div class="card-body">
+				<div th:switch="${students}" class="container my-5">
+					<p class="my-5">
+							<!--  <a href="/students/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"> Add Student</i></a>-->
+							<a class="btn btn-primary" href="@{'/login'}" >Login</a>
+							<a class="btn btn-primary" href="@{'/users/signup'}" >Register</a>
+					</p>
+					
+					<h3> 
+						Hello, <strong th:text="${currentUser}"></strong> !
+						Come to see a movie!
+					</h3>
+                    <p class="my-5">
+							<!--  <a href="/students/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"> Add Student</i></a>-->
+							<a class="btn btn-primary" href="/broadcasts/addBroadcast" >Add a broadcast</a>
+							<a class="btn btn-primary" href="/reservations/add" >Make a reservation</a>
+							<!--  see schedules + update -->
+							
+							<h3>Update a schedule</h3>
+							<div th:switch="${schedules}" class="container my-5">
+					
+								<div class="col-md-10">
+									<h4 th:case="null">No schedules yet!</h4>
+									<div th:case="*">
+										<table class="table table-striped table-responsive-md">
+											<thead>
+												<tr>
+													<th>Date</th>
+													<th>Starting hour</th>
+													<th>Ending hour</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="schedule : ${schedules}">
+													<td th:text="${schedule.date}"></td>
+													<td th:text="${schedule.startingHour}"></td>
+													<td th:text="${schedule.endingHour}"></td>
+													<td><a th:href="@{/schedules/edit/{id}(id=${schedule.id})}"
+														class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+			
+								</div>
+							</div>
+							<!--  see my reservations + delete -->
+							<h3>Cancel my reservation</h3>
+							<div th:switch="${reservations}" class="container my-5">
+					
+								<div class="col-md-10">
+									<h4 th:case="null">No reservations yet!</h4>
+									<div th:case="*">
+										<table class="table table-striped table-responsive-md">
+											<thead>
+												<tr>
+													<th>Date registered</th>
+													<th>No persons</th>
+													<th>Movie name</th>
+													<th>Date</th>
+													<th>Starting hour</th>
+													<th>Ending hour</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="reservation : ${reservations}">
+													<td th:text="${reservation.dateRegistered}"></td>
+													<td th:text="${reservation.noPersons}"></td>
+													<td th:text="${reservation.broadcast.movie.name}"></td>
+													<td th:text="${reservation.broadcast.schedule.date}"></td>
+													<td th:text="${reservation.broadcast.schedule.startingHour}"></td>
+													<td th:text="${reservation.broadcast.schedule.endingHour}"></td>
+													<td><a
+														th:href="@{/movies/delete/{id}(id=${schedule.id})}"
+														class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+			
+								</div>
+							</div>
+					
+					
+					</p>
+					
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

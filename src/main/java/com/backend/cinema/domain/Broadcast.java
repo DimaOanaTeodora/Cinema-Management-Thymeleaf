@@ -1,11 +1,27 @@
 package com.backend.cinema.domain;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
+import com.backend.cinema.domain.security.Authority;
+import com.backend.cinema.domain.security.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "broadcast")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class Broadcast {
 
 	@Id
@@ -24,43 +40,5 @@ public class Broadcast {
 	@JoinColumn(name = "schedule_id", nullable = false)
 	private Schedule schedule;
 
-	public Broadcast() {
-	}
-
-	public Broadcast(Schedule schedule) {
-		this.schedule = schedule;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
-
-	public Schedule getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
-	}
-
+	
 }

@@ -9,8 +9,22 @@ select * from seat;
 select * from movie;
 select * from reserved_seat;
 
-INSERT INTO user
-VALUES ("oanadima26@gmail.com", true, true, true, "oanadima26@gmail.com", true, "1234");
+INSERT INTO movie (name, type) VALUES ("Avatar", "D3");
+INSERT INTO movie (name, type) VALUES ("Motanul incaltat", "D2");
+INSERT INTO movie (name, type) VALUES ("Titanic", "D2");
+
+INSERT INTO room (name, capacity) VALUES ("A1", 5); #room_id = 1
+INSERT INTO room (name, capacity) VALUES ("A2", 3); #room_id =2
+
+INSERT INTO seat (number, room_id) VALUES (1, 1);
+INSERT INTO seat (number, room_id) VALUES (2, 1);
+INSERT INTO seat (number, room_id) VALUES (3, 1);
+INSERT INTO seat (number, room_id) VALUES (4, 1);
+INSERT INTO seat (number, room_id) VALUES (5, 1);
+
+INSERT INTO seat (number, room_id) VALUES (1, 2);
+INSERT INTO seat (number, room_id) VALUES (2, 2);
+INSERT INTO seat (number, room_id) VALUES (3, 2);
 
 SET FOREIGN_KEY_CHECKS=0;
 drop table broadcast;
