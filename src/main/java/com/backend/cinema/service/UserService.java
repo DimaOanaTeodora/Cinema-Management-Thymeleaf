@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.backend.cinema.domain.Reservation;
-import com.backend.cinema.domain.User;
+import com.backend.cinema.domain.security.User;
 import com.backend.cinema.exception.DuplicateUserException;
 import com.backend.cinema.exception.UserNotFoundException;
-import com.backend.cinema.repository.UserRepository;
+import com.backend.cinema.repository.security.UserRepository;
 
 
 public interface UserService {

@@ -1,6 +1,6 @@
 package com.backend.cinema.controller;
 
-import com.backend.cinema.domain.User;
+import com.backend.cinema.domain.security.User;
 import com.backend.cinema.dto.UserRequest;
 import com.backend.cinema.mapper.UserMapper;
 import com.backend.cinema.service.ReservationService;

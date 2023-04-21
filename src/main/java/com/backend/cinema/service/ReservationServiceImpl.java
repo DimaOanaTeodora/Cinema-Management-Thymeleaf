@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.backend.cinema.domain.Broadcast;
 import com.backend.cinema.domain.Reservation;
 import com.backend.cinema.domain.Seat;
-import com.backend.cinema.domain.User;
+import com.backend.cinema.domain.security.User;
 import com.backend.cinema.exception.ReservationNotFoundException;
 import com.backend.cinema.repository.ReservationRepository;
 

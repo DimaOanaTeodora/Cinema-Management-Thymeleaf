@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.cinema.domain.Reservation;
-import com.backend.cinema.domain.User;
+import com.backend.cinema.domain.security.User;
 import com.backend.cinema.dto.UserRequest;
 import com.backend.cinema.mapper.UserMapper;
-import com.backend.cinema.repository.UserRepository;
+import com.backend.cinema.repository.security.UserRepository;
 import com.backend.cinema.service.ReservationService;
 import com.backend.cinema.service.UserService;
 
@@ -68,7 +68,7 @@ public class UserController {
         return "addUser";
     }
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	/*@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Create a user", notes = "Creates a new user based on the information received in the request")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "The User was successfully created based on the received request"),
@@ -77,7 +77,7 @@ public class UserController {
 			@Valid @RequestBody @ApiParam(name = "user", value = "User details", required = true) UserRequest userRequest) {
 		User savedUser = userService.createUser(userMapper.userRequestToUser(userRequest));
 		return ResponseEntity.created(URI.create("/users/" + savedUser.getId())).body(savedUser);
-	}
+	}*/
 
 	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Get details for a user", notes = "Get the details for a user based on the information from the database and the user's id")

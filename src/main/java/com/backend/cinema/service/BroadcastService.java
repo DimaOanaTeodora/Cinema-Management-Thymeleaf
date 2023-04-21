@@ -8,7 +8,6 @@ import com.backend.cinema.domain.Broadcast;
 import com.backend.cinema.domain.Movie;
 import com.backend.cinema.domain.Room;
 import com.backend.cinema.domain.Schedule;
-import com.backend.cinema.domain.User;
 import com.backend.cinema.exception.BroadcastNotFoundException;
 import com.backend.cinema.exception.ScheduleNotFoundException;
 import com.backend.cinema.exception.UserNotFoundException;

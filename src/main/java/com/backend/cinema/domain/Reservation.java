@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.backend.cinema.domain.security.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity

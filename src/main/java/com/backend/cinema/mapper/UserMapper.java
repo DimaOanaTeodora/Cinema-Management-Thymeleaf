@@ -2,7 +2,7 @@ package com.backend.cinema.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.backend.cinema.domain.User;
+import com.backend.cinema.domain.security.User;
 import com.backend.cinema.dto.UserRequest;
 
 @Component

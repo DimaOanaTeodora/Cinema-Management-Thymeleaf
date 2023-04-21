@@ -9,6 +9,9 @@ select * from seat;
 select * from movie;
 select * from reserved_seat;
 
+INSERT INTO user
+VALUES ("oanadima26@gmail.com", true, true, true, "oanadima26@gmail.com", true, "1234");
+
 SET FOREIGN_KEY_CHECKS=0;
 drop table broadcast;
 drop table user;

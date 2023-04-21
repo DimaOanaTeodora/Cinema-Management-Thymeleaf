@@ -1,6 +1,10 @@
 # :cinema: Platforma pentru management-ul rezervarilor la cinema 
 Documentatie
 
+## Run 
+1. Login page: http://localhost:8080/login
+2. 
+
 ## :clipboard: MySQL database - Baza de date - entitati
 ![DB schema](https://github.com/DimaOanaTeodora/Cinema-Management-Backend/blob/main/DB.png?raw=true)
 
