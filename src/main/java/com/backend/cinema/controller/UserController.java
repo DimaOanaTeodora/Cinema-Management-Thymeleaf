@@ -28,7 +28,9 @@ import org.springframework.http.*;
 @RequestMapping("/users")
 public class UserController {
 
-	private UserService userService;
+	private UserRepository userRepository;
+	
+	/*private UserService userService;
 	private UserRepository userRepository;
 	private ReservationService reservationService;
 
@@ -39,7 +41,7 @@ public class UserController {
 		this.reservationService = reservationService;
 		this.userMapper = userMapper;
 		this.userRepository = userRepository;
-	}
+	}*/
 	
 	@PostMapping("/adduser")
     public String addUser(@Valid User user, BindingResult result, Model model) {
@@ -73,7 +75,7 @@ public class UserController {
 		return ResponseEntity.created(URI.create("/users/" + savedUser.getId())).body(savedUser);
 	}*/
 
-	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	/*@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<User> getUser(@PathVariable Integer id) {
 		return ResponseEntity.ok().body(userService.getUser(id));
 	}
@@ -87,6 +89,6 @@ public class UserController {
 
 		userService.deleteUser(id);
 		return ResponseEntity.ok().body("Succesfully deleted");
-	}
+	}*/
 
 }
