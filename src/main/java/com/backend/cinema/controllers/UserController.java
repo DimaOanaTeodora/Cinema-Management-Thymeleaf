@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.security.Authority;
 import com.backend.cinema.domain.security.User;
 import com.backend.cinema.repositories.security.AuthorityRepository;
@@ -35,17 +36,20 @@ public class UserController {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	@Log
 	@GetMapping("signup")
 	public String showSignUpForm(User user) {
 		return "add-user";
 	}
 
+	@Log
 	@GetMapping("list")
 	public String showUpdateForm(Model model) {
 		model.addAttribute("users", userRepository.findAll());
 		return "main";
 	}
 
+	@Log
 	@PostMapping("add")
 	public String addUser(@Valid User user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
@@ -61,6 +65,7 @@ public class UserController {
 		return "redirect:list";
 	}
 
+	@Log
 	@GetMapping("edit/{username}")
 	public String showUpdateForm(@PathVariable("username") String username, Model model) {
 		User user = userRepository.findByUsername(username)
@@ -69,6 +74,7 @@ public class UserController {
 		return "update-user";
 	}
 
+	@Log
 	@GetMapping("delete/{username}")
 	public String deleteUser(@PathVariable("username") String username, Model model) {
 		User user = userRepository.findByUsername(username)

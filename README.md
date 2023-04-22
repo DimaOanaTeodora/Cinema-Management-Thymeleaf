@@ -1,264 +1,149 @@
 # :cinema: Platforma pentru management-ul rezervarilor la cinema 
 Documentatie
 
-## Run / APIs
-1. http://localhost:8080/login => index
-2. 
-
-## :clipboard: MySQL database - Baza de date - entitati
+### :clipboard:  Baza de date - entitati
 ![DB schema](https://github.com/DimaOanaTeodora/Cinema-Management-Backend/blob/main/DB.png?raw=true)
 
-Adaugare filme printr-un JSON cu o lista de filme
-Adaugare sala + generare automata locuri din sala in ordine crescatoare incepand cu 1
-Adaugare sali printr-un JSON cu o lista de sali + enerare automata locuri din sala in ordine crescatoare incepand cu 1
-Adaugare programare film intr-o anumita sala, la o anumita data si ora
+## Aplicația va îndeplini cerințele următoare.
+1. Vor fi create relații între entități de toate tipurile: @OneToOne, @OneToMany, @ManyToOne, @ManyToMany.
 
-Modificarea salii in care un film este programat
-Afisarea informatiilor unei sali (cu tot cu locurile autogenerate) + not found exception
-Afisarea informatiilor despre un film + not found exception
-Afisarea informatiilor unei sali (cu tot cu locurile autogenerate) + not found exception
-Stergerea unei programari a unui film
+   @OneToOne 
+   - Reservation - Broadcast
+  
+   @OneToMany
+   - Movie - Broadcast
+   - Room - Seat
+   - Room - Broadcast
+   - Schedule - Broadcast
+  
+   @ManyToOne
+   - Broadcast - Room
+   - Broadcast - Schedule
+   - Broadcast - Movie
+   - Reservation - User
+   - Seat - Room
+  
+   @ManyToMany
+   - Reservation - Seat (reserved_seat)
 
-## :briefcase: REST ENDPOINTS - CRUD - Functionalitati
-### LOGIN & REGISTER
-username + password 
-
+2. Vor fi implementate toate tipurile de operații CRUD.
 ### CREATE
-1. Adaugare film (broadcast)
-2. Adaugare user
-3. Adaugarea unei rezervari facuta de un user, pentru un anumit film, la o anumita data si ora, cu un numar de locuri dat
-   
+	- (Admins only)Adaugare film la lista de filme
+	- (Admins only) Adaugare programare film(broadcast) la o anumita data, ora, intr-o anumita sala
+	- Adugare user (inregistrare cu username si parola)
+	- Adaugare rezervare facuta de un user la un anumit film programat(broadcast)
 ### UPDATE
-1. Modificarea programului (data si ora de inceput/sfarsit) a unui film 
-   
+    - (Admins only) Modificarea unei programari a unui film (schimbare film, program, sala) 
 ### GET
-1. Afisarea locurilor libere la un anumit film programat sa ruleze 
-2. Afisarea informatiilor numelui userului curent
-3. Afisarea rezervarilor mele 
-
+	- Afisare lista filme pagina principala
+	- Afisare lista programari cu toate informatiile pagina principala
+	- Afisare lisat rezervari user curent pagina principala
+	- Alte informatii extra pe paginile secundare
 ### DELETE
-1. Stergerea unui user si a rezervarilor aferente acestuia
-2. Anularea unei rezervari
+    - Anularea unei rezervari
    
-## :next_track_button: Testing
-Code coverage total obtinut 69.7%
+3. Se va testa aplicația folosindu-se profiluri și două baze de date diferite, una dintre ele pentru etapa de testare. Se poate utiliza și o bază de date in-memory (H2).
+   
+4. Utilizare unit-tests/integration tests.
+   
+5. Se vor valida datele din formulare, se vor trata excepțiile.
+   - Validare date formular - la adaugarea unui film, validarea numelui
+  ```Java
+  public class Movie {
 
-![Tests](https://github.com/DimaOanaTeodora/Cinema-Management-Backend/blob/main/test.png?raw=true)
+	....
 
-Au fost create atat teste de integrare pentru controllers cat si unit teste pentru servicii.
-
-Testele de integrare au fost facute pentru *UserController* si *ScheduleController* acoperind cate o functionalitate CRUD.
-```Java
-@WebMvcTest(controllers = UserController.class) // this tells Spring Boot to auto-configure a Spring web context
-												// for integration tests for the UserController class
-public class UserControllerTest {
-
-	@Autowired
-	private MockMvc mockMvc;
-
-	@Autowired
-	private ObjectMapper objectMapper;
-	@MockBean
-	private UserService userService;
-	@MockBean
-	private ReservationService resevrationService;
-	@MockBean
-	private UserMapper userMapper;
-
-	@Test
-	public void createUser() throws Exception {
-		UserRequest request = new UserRequest("oanadima26@gmail.com", "Dima", "Oana-Teodora");
-
-		when(userService.createUser(any())).thenReturn(new User(1, "oanadima26@gmail.com", "Dima", "Oana-Teodora"));
-
-		mockMvc.perform(
-				post("/users").contentType("application/json").content(objectMapper.writeValueAsString(request)))
-				.andExpect(status().isCreated()).andExpect(jsonPath("$.lastName").value(request.getLastName()))
-				.andExpect(jsonPath("$.firstName").value(request.getFirstName()))
-				.andExpect(jsonPath("$.email").value(request.getEmail()));
-	}
-    ...
-}
-```
-
-Unit testele acopera marea majoritate a functionalitatilor din serviciile folosite.
-```Java
-@ExtendWith(MockitoExtension.class)
-public class RoomServiceTest {
-
-	@InjectMocks
-	private RoomService roomService;
-
-	@Mock
-	private RoomRepository roomRepository;
-	
-	...
-
-	@Test
-	void whenRoomDoesntExists_getRoom_throwsRoomNotFoundException() {
-
-		// Act
-		RoomNotFoundException exception = assertThrows(RoomNotFoundException.class, () -> roomService.getRoom(1));
-
-		// Assert
-		assertEquals("Room with id 1 doesn't exist ", exception.getMessage());
-
-	}
-    ...
-}
-```
-## Controllers 
-Exista 7 controllere create cate una pentru fiecare entitate in parte.
-- UserController /users
-- ScheduleController /schedules
-- MovieController /movies
-- RoomController /rooms
-- SeatController /seats
-- BroadcastController /broadcasts
-- ReservationController /reservations
-  
-## Services
-Exista 7 servicii create cate una pentru fiecare entitate in parte.
-- UserService 
-- ScheduleService 
-- MovieService 
-- RoomService  
-- SeatService  
-- BroadcastService  
-- ReservationService  
-  
-```Java 
-@Service
-public class BroadcastService {
-
-	private BroadcastRepository broadcastRepository;
-
-	public BroadcastService(BroadcastRepository broadcastRepository) {
-		this.broadcastRepository = broadcastRepository;
-	}
-
-	public Broadcast updateBroadcastRoom(Broadcast oldBroadcast, Room newRoom) {
-		oldBroadcast.setRoom(newRoom);
-		return broadcastRepository.save(oldBroadcast);
-	}
-
-	public Broadcast createBroadcast(Broadcast broadcast, Room room, Movie movie) {
-		broadcast.setRoom(room);
-		broadcast.setMovie(movie);
-		return broadcastRepository.save(broadcast);
-	}
-
-	public Broadcast getBroadcast(Integer id) {
-		Optional<Broadcast> broadcastOptional = broadcastRepository.findById(id);
-		if (broadcastOptional.isPresent()) {
-			return broadcastOptional.get();
-		} else {
-			throw new BroadcastNotFoundException(id);
-		}
-	}
-
-	public void deleteBroadcast(Integer id) {
-		Optional<Broadcast> broadcastOptional = broadcastRepository.findById(id);
-		if (broadcastOptional.isPresent()) {
-			broadcastRepository.delete(broadcastOptional.get());
-		} else {
-			throw new BroadcastNotFoundException(id);
-		}
-	}
-
-}
-```
-## Repositories
-- Fiecare entitate are asociata cate o interfata care extinde *JpaRepository<Entitate, Tip_ID>* unde au fost definite metodele care nu se aflau in interfata de baza (cele existente deja: findById, findAllById, delete, save etc...) 
-```Java
-public interface UserRepository extends JpaRepository<User, Integer> {
-
-	@Query(value = "select * from user where first_name = :name", nativeQuery = true)
-	User findUserByFirstNameWithNativeQuery(String name);
-
-	Optional<User> findByEmail(String email);
-
-}
-```
-
-## Model mapper 
-- Clasele de tip *@Component* cu scopul maparii entitatilor de tip request in entitati folosite ca model in baza de date au fost create pentru fiecare entitate in parte, continand un singur constructor cu parametrii
-```Java
-@Component
-public class UserMapper {
-
-	public User userRequestToUser(UserRequest userRequest) {
-
-		return new User(userRequest.getEmail(), userRequest.getLastName(), userRequest.getFirstName());
-	}
-}
-```
-
-## DTOs
-- fiecare entitate de tip *NumeEntitateRequest* contine pentru toate campurile validari in functie de tip
-- String/Enum
-```Java
-public class MovieRequest {
-
-	@NotBlank(message = "Name of the movie cannot be null")
-	@ApiModelProperty(value = "name", required = true, notes = "The name of the movie", example = "Avatar 2", position = 1)
+	@Size(min = 2, message = "*The name is too short!")
+	@Size(max = 10, message = "*The name is too long (<=10 characters)!")
 	private String name;
 
-	@Enumerated(EnumType.STRING)
-	@NotNull(message = "Type cannot be null")
-	@ApiModelProperty(value = "type", required = true, notes = "The type of the movie", example = "D2", position = 2)
-	private MovieType type;
-    ...
-    }
-```
-- int/Integer
-```Java
-public class RoomRequest {
-
 	...
 
-	@NotNull(message = "Capacity cannot be null")
-	@Min(1)
-	@ApiModelProperty(value = "capacity", required = true, notes = "The capacity of the room", example = "40", position = 2)
-	private int capacity;
+  }
+  ```
+   - Tratarea exceptiilor 
+6. Se vor utiliza log-uri. Opțional aspecte.
+```
+2023-04-22 23:14:40.790  INFO 9848 --- [nio-8080-exec-6] c.b.cinema.configuration.LoggingAspect   : aspect log after List com.backend.cinema.services.ReservationServiceImpl.getAllReservationsByUsername(String)
+2023-04-22 23:14:40.790  INFO 9848 --- [nio-8080-exec-6] c.b.cinema.configuration.LoggingAspect   : aspect log after ModelAndView com.backend.cinema.controllers.MainController.getHome(Model)
+```
+```Java
+@Component
+@Aspect
+@Slf4j
+public class LoggingAspect {
+	...
+	@After("logAnnotation()")
+	public void logMethodCallAdvice(JoinPoint joinPoint) {
+		log.info("aspect log after " + joinPoint.getSignature());
+	}
 
-    ...
+	@Before("logPackage()")
+	public void logPackageAdvice(JoinPoint joinPoint) {
+		log.info("aspect log before " + joinPoint.getSignature());
+	}
+
+	@After("logMethod()")
+	public void logSetterAdvice(JoinPoint joinPoint) {
+		log.info("aspect log after " + joinPoint.getSignature());
+		log.info("aspect log param " + joinPoint.getArgs()[0]);
+	}
+	...
 }
 ```
+7. For fi utilizate opțiuni de paginarea și sortarea a datelor.
+8. Se va include Spring Security (cerința minima autentificare jdbc).
+- Sistem de login si inregistrare
+  ```html
+   <body>
+      <div class="container" style="margin-top: 20px">
+         <div class="col-md-6 col-md-offset-3">
+            <form class="form-signin" method="post" th:action="perform_login">
+               <h2 class="form-signin-heading">Sign in ....</h2>
+               <p>
+               <p th:if="${param.error}" class="text-danger">Invalid user or password</p>
+               <label for="username" class="sr-only">Username</label>
+               <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+               </p>
+               <p>
+                  <label for="password" class="sr-only">Password</label>
+                  <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+               </p>
+               <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+               
+               </br>
+               
+               <p> Don't have an account?
+               	  <a class="btn btn-primary" href="/users/signup" >Register</a>
+               </p>
+            </form>
+         </div>
+      </div>
+   </body>
+  ```
+- Permisiuni in functie de rolurile asociate
+- Parola salvata criptata in baza de date 
+  ```Java
+  public class SecurityJpaConfig {
 
-## :exclamation: Exception handling
-- Pentru user: UserDuplicateException si UserNotFoundException
-- Pentru restul entatilor doar NotFoundException
-  
-```Java
-  @ControllerAdvice
-    public class GlobalExceptionHandler {
-        
-        @ExceptionHandler({DuplicateUserException.class})
-        public ResponseEntity handle(DuplicateUserException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+	....
 
-        @ExceptionHandler({UserNotFoundException.class})
-        public ResponseEntity<String> handle(UserNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(e.getMessage() + " at " + LocalDateTime.now());
-        }
-        
-        @ExceptionHandler({MovieNotFoundException.class})
-        public ResponseEntity<String> handle(MovieNotFoundException e) {
-            ...
-        }
-        
-        ...
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-        @ExceptionHandler(MethodArgumentNotValidException.class)
-        public ResponseEntity<String> handle(MethodArgumentNotValidException e) {
-            return ResponseEntity.badRequest()
-                    .body("Invalid value : " + e.getFieldError().getRejectedValue() +
-                            " for field " + e.getFieldError().getField() +
-                            " with message " + e.getFieldError().getDefaultMessage());
-        }
-    }
-```
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		return http.authorizeRequests(auth -> auth.antMatchers("/broadcasts").permitAll()
+				.antMatchers("/auction").hasAnyRole().antMatchers("/broadcasts/**").hasRole("ADMIN")
+				.antMatchers("/auction").hasAnyRole().antMatchers("/movies/**").hasRole("ADMIN")
+				.antMatchers("/movies/add").hasRole("ADMIN").antMatchers("/login").permitAll()
+				.antMatchers("/broadcasts/add").hasRole("ADMIN").antMatchers("/login").permitAll()
+		// .anyRequest().authenticated()
+		).userDetailsService(userDetailsService).formLogin().loginPage("/login").loginProcessingUrl("/perform_login")
+				.and().exceptionHandling().accessDeniedPage("/access_denied").and().httpBasic(withDefaults()).build();
+	}
+
+  }
+  ```

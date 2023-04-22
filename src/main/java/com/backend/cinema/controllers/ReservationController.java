@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.Broadcast;
 import com.backend.cinema.domain.Reservation;
 import com.backend.cinema.domain.Seat;
@@ -67,6 +68,7 @@ public class ReservationController {
 		return seats;
 	}
 
+	@Log
 	@GetMapping("addReservation")
 	public String showAddReservationForm(Reservation reservation, Model model) {
 		List<Broadcast> broadcasts = broadcastRepository.findAll();
@@ -98,6 +100,7 @@ public class ReservationController {
 		return "add-reservation";
 	}
 
+	@Log
 	@PostMapping("add")
 	public String addReservation(@Valid Reservation reservation, BindingResult result, Model model) {
 		if (result.hasErrors()) {
@@ -132,6 +135,7 @@ public class ReservationController {
 		return "redirect:/main";
 	}
 
+	@Log
 	@GetMapping("/delete/{id}")
 	public String deleteReservation(@PathVariable("id") int id, Model model) {
 		Reservation reservation = reservationRepository.findById(id)

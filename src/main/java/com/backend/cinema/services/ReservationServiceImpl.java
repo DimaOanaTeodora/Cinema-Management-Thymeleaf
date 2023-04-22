@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.Broadcast;
 import com.backend.cinema.domain.Reservation;
 import com.backend.cinema.domain.Seat;
@@ -23,6 +24,7 @@ public class ReservationServiceImpl implements ReservationService {
 		this.userRepository = userRepository;
 	}
 
+	@Log
 	public List<Reservation> getAllReservationsByUsername(String username) {
 		Optional<User> user = userRepository.findByUsername(username);
 		if (!user.isEmpty()) {

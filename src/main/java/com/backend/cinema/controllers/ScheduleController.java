@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.Schedule;
 import com.backend.cinema.repositories.ScheduleRepository;
 
@@ -32,6 +33,7 @@ public class ScheduleController {
 
 	}
 
+	@Log
 	@RequestMapping("/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
 		model.addAttribute("schedule", scheduleRepository.findById(id));
@@ -39,6 +41,7 @@ public class ScheduleController {
 		return "update-schedule";
 	}
 
+	@Log
 	@PostMapping("")
 	public String saveOrUpdate(@Valid @ModelAttribute Schedule schedule, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {

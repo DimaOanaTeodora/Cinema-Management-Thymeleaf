@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.Category;
 import com.backend.cinema.domain.Movie;
 import com.backend.cinema.domain.MovieType;
@@ -31,11 +32,13 @@ public class MovieController {
 		this.movieRepository = movieRepository;
 	}
 
+	@Log
 	@GetMapping("addMovie")
 	public String showAddMovieForm(Movie movie, Model model) {
 		return "add-movie";
 	}
 
+	@Log
 	@PostMapping("/add")
 	public String addMovie(@Valid @ModelAttribute Movie movie, BindingResult result, Model model) {
 		if (result.hasErrors()) {

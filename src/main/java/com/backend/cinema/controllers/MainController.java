@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.backend.cinema.configuration.Log;
 import com.backend.cinema.repositories.BroadcastRepository;
 import com.backend.cinema.repositories.MovieRepository;
 import com.backend.cinema.repositories.ReservationRepository;
@@ -19,16 +20,6 @@ import com.backend.cinema.services.ReservationService;
 
 @Controller
 public class MainController {
-
-	@GetMapping("/login")
-	public String showLogInForm() {
-		return "login";
-	}
-
-	@GetMapping("/access_denied")
-	public String accessDeniedPage() {
-		return "accessDenied";
-	}
 
 	private ScheduleRepository scheduleRepository;
 	private ReservationRepository reservationRepository;
@@ -51,6 +42,19 @@ public class MainController {
 
 	}
 
+	@Log
+	@GetMapping("/login")
+	public String showLogInForm() {
+		return "login";
+	}
+
+	@Log
+	@GetMapping("/access_denied")
+	public String accessDeniedPage() {
+		return "accessDenied";
+	}
+
+	@Log
 	@GetMapping("/main")
 	public String showMainPage(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -75,6 +79,7 @@ public class MainController {
 		return "main";
 	}
 
+	@Log
 	@RequestMapping({ "", "/", "/auction" })
 	public ModelAndView getHome(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

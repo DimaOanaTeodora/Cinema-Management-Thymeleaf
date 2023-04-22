@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.Broadcast;
 import com.backend.cinema.domain.Reservation;
 import com.backend.cinema.domain.Room;
@@ -26,6 +27,7 @@ public class SeatServiceImpl implements SeatService {
 		this.reservationRepository = reservationRepository;
 	}
 
+	@Log
 	public List<Seat> getFreeSeatsForBrodcast(Broadcast broadcast) {
 		List<Seat> listFreeSeats = new ArrayList<Seat>();
 		List<Seat> allSeats = seatRepository.findAll();
