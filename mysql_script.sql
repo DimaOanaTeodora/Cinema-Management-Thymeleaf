@@ -33,6 +33,10 @@ INSERT INTO schedule (date, ending_hour, starting_hour) VALUES (STR_TO_DATE("02-
 INSERT INTO broadcast (movie_id, room_id, schedule_id) VALUES (1, 1, 1);
 INSERT INTO broadcast (movie_id, room_id, schedule_id) VALUES (2, 2, 1);
 
+INSERT INTO reservation (date_registered, no_persons, broadcast_id, user_id) VALUES (STR_TO_DATE("02-07-2023", "%m-%d-%Y"), 1, 1, "oana");
+INSERT INTO reserved_seat (reservation_id, seat_id) VALUES (1, 1);
+
+
 SET FOREIGN_KEY_CHECKS=0;
 drop table broadcast;
 drop table user;

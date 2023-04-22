@@ -36,7 +36,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	public List<Reservation> getAllReservationsByUsername(String username) {
 		Optional<User> user = userRepository.findByUsername(username);
-		if (user.isEmpty()) {
+		if (!user.isEmpty()) {
 			if (user.get().getReservations().size() > 0) {
 				return user.get().getReservations();
 			} else {

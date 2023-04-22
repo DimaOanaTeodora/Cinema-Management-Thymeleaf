@@ -1,6 +1,8 @@
 package com.backend.cinema.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -49,16 +51,22 @@ public class MainController {
 	@RequestMapping({ "", "/", "/auction" })
 	public ModelAndView getHome(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = "admin";
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
+		String username = null;
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+		    username = authentication.getName();
+		    System.out.println("---------- current logged user is " + username);
 		}
+		
 		model.addAttribute("user", scheduleRepository.findAll());
 		model.addAttribute("broadcasts", broadcastRepository.findAll());
 		model.addAttribute("currentUser", username);
-		//model.addAttribute("reservations", reservationService.getAllReservationsByUsername(username));
+		if(username != null && !userRepository.findByUsername(username).isEmpty()) 
+		{
+			System.out.println("---------- current not empty " + username);
+			model.addAttribute("reservations", reservationService.getAllReservationsByUsername(username)); 
+		}
 		return new ModelAndView("main");
 	}
 

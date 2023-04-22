@@ -22,8 +22,8 @@
 				<div th:switch="${students}" class="container my-5">
 					<p class="my-5">
 							<!--  <a href="/students/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"> Add Student</i></a>-->
-							<a class="btn btn-primary" href="@{'/login'}" >Login</a>
-							<a class="btn btn-primary" href="@{'/users/signup'}" >Register</a>
+							<a class="btn btn-primary" href="/login" >Login</a>
+							<a class="btn btn-primary" href="/users/signup" >Register</a>
 					</p>
 					
 					<h3> 
@@ -91,7 +91,7 @@
 													<th>Date</th>
 													<th>Starting hour</th>
 													<th>Ending hour</th>
-													<th>Delete</th>
+													<th>Cancel</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -103,7 +103,7 @@
 													<td th:text="${reservation.broadcast.schedule.startingHour}"></td>
 													<td th:text="${reservation.broadcast.schedule.endingHour}"></td>
 													<td><a
-														th:href="@{/movies/delete/{id}(id=${schedule.id})}"
+														th:href="@{/reservations/delete/{id}(id=${reservation.id})}"
 														class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
 												</tr>
 											</tbody>

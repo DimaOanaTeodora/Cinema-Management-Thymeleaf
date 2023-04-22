@@ -4,7 +4,7 @@ INSERT INTO movie (name, type) VALUES ("Motanul incaltat", "D2");
 INSERT INTO movie (name, type) VALUES ("Titanic", "D2");
 
 INSERT INTO room (name, capacity) VALUES ("A1", 5); #room_id = 1
-INSERT INTO room (name, capacity) VALUES ("A2", 3); #room_id =2
+INSERT INTO room (name, capacity) VALUES ("A2", 5); #room_id =2
 
 INSERT INTO seat (number, room_id) VALUES (1, 1);
 INSERT INTO seat (number, room_id) VALUES (2, 1);

@@ -32,7 +32,8 @@ public class Reservation {
 	private Date dateRegistered;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
+	//@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
 
 	@ManyToMany(targetEntity = Seat.class)

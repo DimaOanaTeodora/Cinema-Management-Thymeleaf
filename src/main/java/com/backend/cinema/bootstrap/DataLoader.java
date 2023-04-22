@@ -27,11 +27,15 @@ public class DataLoader implements CommandLineRunner {
 
 			User admin = User.builder().username("admin").password(passwordEncoder.encode("12345")).authority(adminRole)
 					.build();
+			
+			User oana = User.builder().username("oana").password(passwordEncoder.encode("12345")).authority(adminRole)
+					.build();
 
 			User guest = User.builder().username("guest").password(passwordEncoder.encode("12345")).authority(guestRole)
 					.build();
 
 			userRepository.save(admin);
+			userRepository.save(oana);
 			userRepository.save(guest);
 		}
 	}
