@@ -15,6 +15,8 @@ INSERT INTO seat (number, room_id) VALUES (5, 1);
 INSERT INTO seat (number, room_id) VALUES (1, 2);
 INSERT INTO seat (number, room_id) VALUES (2, 2);
 INSERT INTO seat (number, room_id) VALUES (3, 2);
+INSERT INTO seat (number, room_id) VALUES (4, 2);
+INSERT INTO seat (number, room_id) VALUES (5, 2);
 
 INSERT INTO schedule (date, starting_hour, ending_hour) VALUES (STR_TO_DATE("05-07-2023", "%d-%m-%Y"), "20:00", "21:00");
 INSERT INTO schedule (date, starting_hour, ending_hour) VALUES (STR_TO_DATE("03-07-2023", "%d-%m-%Y"), "10:00", "11:00");

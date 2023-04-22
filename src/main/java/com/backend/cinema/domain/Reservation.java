@@ -44,5 +44,8 @@ public class Reservation {
 	@OneToOne//(cascade = CascadeType.ALL) 
 	@JoinColumn(name = "broadcast_id", referencedColumnName = "id")
 	private Broadcast broadcast;
+	
+	@Transient
+	private List<Integer> seats;
 
 }

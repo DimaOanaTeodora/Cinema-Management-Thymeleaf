@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,23 +107,11 @@ public class ReservationController {
 		}
 
 		Optional<User> currentUser = userRepository.findByUsername(username); 
-		if (!currentUser.isEmpty()) {
-			System.out.println("---------- reservation controller current user is " + currentUser.get().getUsername());
-			reservation.setUser(currentUser.get());
-
-		} else {
+		if (currentUser.isEmpty()) 
+		{
 			throw new ResourceNotFoundException("You need to be logged");
 		}
 
-		reservation.setDateRegistered(new Date());
-		reservation.setNoPersons(2);
-
-		reservation = reservationRepository.save(reservation);
-		
-		List<Reservation> userReservations = currentUser.get().getReservations();
-		userReservations.add(reservation);
-		currentUser.get().setReservations(userReservations);
-		userRepository.save(currentUser.get());
 
 		return "add-reservation";
 	}
@@ -137,7 +126,36 @@ public class ReservationController {
 		if (result.hasErrors()) {
 			return "add-reservation";
 		}
-		reservationRepository.save(reservation);
+		String username = null;
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+		    username = authentication.getName();
+		    System.out.println("---------- 2 reservation controller current logged user is " + username);
+		}
+
+		Optional<User> currentUser = userRepository.findByUsername(username); 
+		if (!currentUser.isEmpty()) {
+			System.out.println("---------- 2 reservation controller current user is " + currentUser.get().getUsername());
+			reservation.setUser(currentUser.get());
+
+		} else {
+			throw new ResourceNotFoundException("You need to be logged");
+		}
+
+		reservation.setDateRegistered(new Date());
+		
+		 System.out.println("---------- 2 LOG " + reservation.getSeats().size());
+		
+		reservation.setNoPersons(2);
+
+		reservation = reservationRepository.save(reservation);
+		
+		/*List<Reservation> userReservations = currentUser.get().getReservations();
+		userReservations.add(reservation);
+		currentUser.get().setReservations(userReservations);
+		userRepository.save(currentUser.get());*/
+		//reservationRepository.save(reservation);
 
 		return "main";
 	}

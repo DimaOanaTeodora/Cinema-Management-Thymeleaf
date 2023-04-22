@@ -21,8 +21,8 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-10">
-					<form action="#" th:action="@{/reservations/add}"
-						th:object="${reservation}" method="post">
+					<form:form action="#" th:action="@{/reservations/add}"
+						th:object="${reservation}" method="post" >
 						<div class="row">
 
 
@@ -75,8 +75,7 @@
 							</div>
 							</p>
 						</div>
-
-
+						
 						<p>Select seats
 						<ul>
 							<li th:each="checkboxValue: ${multiCheckboxAllValues}"><input
@@ -85,10 +84,10 @@
 							</li>
 						</ul>
 						</p>
-
+						
 						<input type="submit" class="btn btn-primary"
 							value="Add reservation">
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
