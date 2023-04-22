@@ -5,7 +5,7 @@ Documentatie
 ![DB schema](https://github.com/DimaOanaTeodora/Cinema-Management-Backend/blob/main/DB.png?raw=true)
 
 ## Aplicația va îndeplini cerințele următoare.
-1. Vor fi create relații între entități de toate tipurile: @OneToOne, @OneToMany, @ManyToOne, @ManyToMany.
+:white_check_mark: Vor fi create relații între entități de toate tipurile: @OneToOne, @OneToMany, @ManyToOne, @ManyToMany.
 
    @OneToOne 
    - Reservation - Broadcast
@@ -25,8 +25,9 @@ Documentatie
   
    @ManyToMany
    - Reservation - Seat (reserved_seat)
+   - User - Authority (user_authority)
 
-2. Vor fi implementate toate tipurile de operații CRUD.
+:white_check_mark: Vor fi implementate toate tipurile de operații CRUD.
 ### CREATE
 	- (Admins only)Adaugare film la lista de filme
 	- (Admins only) Adaugare programare film(broadcast) la o anumita data, ora, intr-o anumita sala
@@ -42,11 +43,11 @@ Documentatie
 ### DELETE
     - Anularea unei rezervari
    
-3. Se va testa aplicația folosindu-se profiluri și două baze de date diferite, una dintre ele pentru etapa de testare. Se poate utiliza și o bază de date in-memory (H2).
+:ballot_box_with_check: Se va testa aplicația folosindu-se profiluri și două baze de date diferite, una dintre ele pentru etapa de testare. Se poate utiliza și o bază de date in-memory (H2).
    
-4. Utilizare unit-tests/integration tests.
+:ballot_box_with_check: Utilizare unit-tests/integration tests.
    
-5. Se vor valida datele din formulare, se vor trata excepțiile.
+:white_check_mark: Se vor valida datele din formulare, se vor trata excepțiile.
    - Validare date formular - la adaugarea unui film, validarea numelui
   ```Java
   public class Movie {
@@ -92,7 +93,7 @@ public class BroadcastController {
 
 }
 ```
-1. Se vor utiliza log-uri. Opțional aspecte.
+:white_check_mark: Se vor utiliza log-uri. Opțional aspecte.
 ```
 2023-04-22 23:14:40.790  INFO 9848 --- [nio-8080-exec-6] c.b.cinema.configuration.LoggingAspect   : aspect log after List com.backend.cinema.services.ReservationServiceImpl.getAllReservationsByUsername(String)
 2023-04-22 23:14:40.790  INFO 9848 --- [nio-8080-exec-6] c.b.cinema.configuration.LoggingAspect   : aspect log after ModelAndView com.backend.cinema.controllers.MainController.getHome(Model)
@@ -121,8 +122,38 @@ public class LoggingAspect {
 	...
 }
 ```
-1. For fi utilizate opțiuni de paginarea și sortarea a datelor.
-2. Se va include Spring Security (cerința minima autentificare jdbc).
+:white_check_mark: Vor fi utilizate opțiuni de paginarea și sortarea a datelor.
+- Afisarea filmelor in pagina principala ordonate alfabetic dupa nume
+```Java
+@Repository
+public interface MovieRepository extends PagingAndSortingRepository <Movie, Integer>{ 
+
+}
+```
+```Java
+@Controller
+public class MainController {
+	...
+	
+	@Log
+	@GetMapping("/main")
+	public String showMainPage(Model model) {
+		...
+		
+		List<Movie> movies = new ArrayList<>();
+		movieRepository.findAll(Sort.by("name")).iterator().forEachRemaining(movies::add);
+		model.addAttribute("movies", movies);
+		
+		...
+
+		return "main";
+	}
+
+	...
+}
+```
+   
+:white_check_mark: Se va include Spring Security (cerința minima autentificare jdbc).
 - Sistem de login si inregistrare
   ```html
    <body>

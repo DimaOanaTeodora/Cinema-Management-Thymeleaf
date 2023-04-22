@@ -32,7 +32,7 @@
                      <a class="btn btn-primary" href="/reservations/addReservation" >Make a reservation</a>
                      <a class="btn btn-primary" href="/movies/addMovie" >Add a movie (admins only)</a>
                    
-                  <h3>Movie list</h3>
+                  <h3>Movie list (sorted by name)</h3>
                   <div th:switch="${movies}" class="container my-5">
                      <div class="col-md-10">
                         <h2 th:case="null">No movies yet!</h2>

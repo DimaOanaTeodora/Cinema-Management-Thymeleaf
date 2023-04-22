@@ -1,6 +1,6 @@
 
 INSERT INTO movie (name, type) VALUES ("Avatar", "D3");
-INSERT INTO movie (name, type) VALUES ("Motanul incaltat", "D2");
+INSERT INTO movie (name, type) VALUES ("Rapunzel", "D2");
 INSERT INTO movie (name, type) VALUES ("Titanic", "D2");
 
 INSERT INTO room (name, capacity) VALUES ("A1", 5); #room_id = 1

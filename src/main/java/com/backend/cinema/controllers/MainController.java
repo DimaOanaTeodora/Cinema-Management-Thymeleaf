@@ -1,5 +1,8 @@
 package com.backend.cinema.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +20,10 @@ import com.backend.cinema.repositories.ReservationRepository;
 import com.backend.cinema.repositories.ScheduleRepository;
 import com.backend.cinema.repositories.security.UserRepository;
 import com.backend.cinema.services.ReservationService;
+
+import com.backend.cinema.domain.Movie;
+
+import org.springframework.data.domain.Sort;
 
 @Controller
 public class MainController {
@@ -68,7 +75,11 @@ public class MainController {
 
 		model.addAttribute("user", scheduleRepository.findAll());
 		model.addAttribute("broadcasts", broadcastRepository.findAll());
-		model.addAttribute("movies", movieRepository.findAll());
+		
+		List<Movie> movies = new ArrayList<>();
+		movieRepository.findAll(Sort.by("name")).iterator().forEachRemaining(movies::add);
+		model.addAttribute("movies", movies);
+		
 		model.addAttribute("currentUser", username);
 
 		if (username != null && !userRepository.findByUsername(username).isEmpty()) {
@@ -93,7 +104,11 @@ public class MainController {
 
 		model.addAttribute("user", scheduleRepository.findAll());
 		model.addAttribute("broadcasts", broadcastRepository.findAll());
-		model.addAttribute("movies", movieRepository.findAll());
+		
+		List<Movie> movies = new ArrayList<>();
+		movieRepository.findAll(Sort.by("name")).iterator().forEachRemaining(movies::add);
+		model.addAttribute("movies", movies);
+		
 		model.addAttribute("currentUser", username);
 
 		if (username != null && !userRepository.findByUsername(username).isEmpty()) {
