@@ -16,8 +16,8 @@ import com.backend.cinema.repositories.ReservationRepository;
 import com.backend.cinema.repositories.SeatRepository;
 
 @Service
-public class SeatServiceImpl implements SeatService{
-	
+public class SeatServiceImpl implements SeatService {
+
 	private SeatRepository seatRepository;
 	private ReservationRepository reservationRepository;
 
@@ -26,37 +26,19 @@ public class SeatServiceImpl implements SeatService{
 		this.reservationRepository = reservationRepository;
 	}
 
-	public List<Seat> getSeatsFromList(List<Integer> seatIds) {
-		List<Seat> list = new ArrayList<Seat>();
-		for (Integer id : seatIds) {
-			Optional<Seat> seat = seatRepository.findById(id);
-			if (seat.isPresent()) {
-				list.add(seat.get());
-			}
-
-		}
-		return list;
-	}
-
-	public Seat createSeat(Seat seat) {
-		return seatRepository.save(seat);
-	}
-	
 	public List<Seat> getFreeSeatsForBrodcast(Broadcast broadcast) {
 		List<Seat> listFreeSeats = new ArrayList<Seat>();
 		List<Seat> allSeats = seatRepository.findAll();
 		List<Seat> reservedSeats = new ArrayList<Seat>();
 		List<Reservation> reservations = reservationRepository.findAll();
-		
-	
+
 		// get reserved seats for a certain broadcast
 		for (Reservation reservation : reservations) {
-			if(reservation.getBroadcast().getId() == broadcast.getId()) 
-			{
+			if (reservation.getBroadcast().getId() == broadcast.getId()) {
 				reservedSeats.addAll(reservation.getReservedSeats());
 			}
 		}
-		
+
 		for (Seat seat : allSeats) {
 			if (seat.getRoom().getId() == broadcast.getRoom().getId() && !reservedSeats.contains(seat)) {
 				listFreeSeats.add(seat);
@@ -65,42 +47,4 @@ public class SeatServiceImpl implements SeatService{
 		return listFreeSeats;
 	}
 
-	public Dictionary<Room, List<Seat>> getFreeSeats(List<Reservation> reservations, Broadcast broadcast) {
-		Dictionary<Room, List<Seat>> dictionary = new Hashtable<Room, List<Seat>>();
-		List<Seat> allSeats = seatRepository.findAll();
-		List<Seat> reservedSeats = new ArrayList<Seat>();
-		for (Reservation reservation : reservations) {
-			reservedSeats.addAll(reservation.getReservedSeats());
-		}
-		for (Seat seat : allSeats) {
-			if (seat.getRoom().getId() == broadcast.getRoom().getId() && !reservedSeats.contains(seat)) {
-				List<Seat> l = dictionary.get(seat.getRoom());
-				if (l == null) {
-					l = new ArrayList<Seat>();
-				}
-				l.add(seat);
-				dictionary.put(seat.getRoom(), l);
-			}
-		}
-		return dictionary;
-	}
-
-	public Optional<Seat> getSeat(Integer id) {
-		Optional<Seat> seatOptional = seatRepository.findById(id);
-		if (seatOptional.isPresent()) {
-			return seatOptional;
-		} else {
-			return null;
-		}
-	}
-
-	public List<Seat> createSeats(Room room) {
-		List<Seat> seats = new ArrayList<Seat>();
-		for (int i = 1; i <= room.getCapacity(); i++) {
-			Seat seat = new Seat(i);
-			seat.setRoom(room);
-			seats.add(createSeat(seat));
-		}
-		return seats;
-	}
 }

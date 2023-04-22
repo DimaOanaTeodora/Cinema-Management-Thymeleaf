@@ -1,49 +1,48 @@
 package com.backend.cinema.controllers;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.backend.cinema.domain.Category;
 import com.backend.cinema.domain.Movie;
-import com.backend.cinema.services.MovieService;
+import com.backend.cinema.domain.MovieType;
+import com.backend.cinema.repositories.MovieRepository;
 
-@RestController
-@RequestMapping("/movies")
+@Controller
+@RequestMapping("/movies/")
 public class MovieController {
 
-	private MovieService movieService;
+	private MovieRepository movieRepository;
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Movie> create(
-			@Valid @RequestBody Movie movie) {
-		Movie savedMovie = movieService.createMovie(movie);
-		return ResponseEntity.created(URI.create("/movies/" + savedMovie.getId())).body(savedMovie);
+	@Autowired
+	public MovieController(MovieRepository movieRepository) {
+
+		this.movieRepository = movieRepository;
 	}
 
-	@PostMapping(path = "/all", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<Movie>> createBulk(
-			@Valid @RequestBody  List<Movie> listMovieRequest) {
-		for (Movie movie: listMovieRequest) {
-			Movie savedMovie = movieService.createMovie(movie);
+	@GetMapping("addMovie")
+	public String showAddMovieForm(Movie movie, Model model) {
+		return "add-movie";
+	}
+
+	@PostMapping("/add")
+	public String addMovie(@Valid @ModelAttribute Movie movie, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "add-movie";
 		}
-		return ResponseEntity.ok().body(movieService.getAllMovies());
-	}
+		movieRepository.save(movie);
 
-	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Movie> getMovie(@PathVariable Integer id) {
-		return ResponseEntity.ok().body(movieService.getMovie(id));
+		return "redirect:/main";
 	}
-
 }

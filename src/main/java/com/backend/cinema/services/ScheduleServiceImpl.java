@@ -17,20 +17,6 @@ public class ScheduleServiceImpl implements ScheduleService{
 		this.scheduleRepository = scheduleRepository;
 	}
 
-	public Schedule updateSchedule(Schedule oldSchedule, Schedule newSchedule) {
-		oldSchedule.setDate(newSchedule.getDate());
-		oldSchedule.setEndingHour(newSchedule.getEndingHour());
-		oldSchedule.setStartingHour(newSchedule.getStartingHour());
-		return scheduleRepository.save(oldSchedule);
-	}
-
-	public Schedule getSchedule(Integer id) {
-		Optional<Schedule> scheduleOptional = scheduleRepository.findById(id);
-		if (scheduleOptional.isPresent()) {
-			return scheduleOptional.get();
-		} else {
-			throw new  ResourceNotFoundException(" ResourceNotFoundException ");
-		}
-	}
+	
 
 }

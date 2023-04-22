@@ -23,17 +23,6 @@ public class ReservationServiceImpl implements ReservationService {
 		this.userRepository = userRepository;
 	}
 
-	public Reservation createReservation(Reservation reservation, User user, Broadcast broadcast, List<Seat> seats) {
-		reservation.setUser(user);
-		reservation.setBroadcast(broadcast);
-		reservation.setReservedSeats(seats);
-		return reservationRepository.save(reservation);
-	}
-
-	public List<Reservation> getAllReservationsByBroadcast(Integer broadcastId) {
-		return reservationRepository.findAllByBroadcastId(broadcastId);
-	}
-
 	public List<Reservation> getAllReservationsByUsername(String username) {
 		Optional<User> user = userRepository.findByUsername(username);
 		if (!user.isEmpty()) {
@@ -44,24 +33,6 @@ public class ReservationServiceImpl implements ReservationService {
 			}
 		} else {
 			throw new ResourceNotFoundException("user not found");
-		}
-	}
-
-	public Reservation getReservation(Integer id) {
-		Optional<Reservation> reservationOptional = reservationRepository.findById(id);
-		if (reservationOptional.isPresent()) {
-			return reservationOptional.get();
-		} else {
-			throw new ResourceNotFoundException(" ResourceNotFoundException ");
-		}
-	}
-
-	public void deleteReservation(Integer id) {
-		Optional<Reservation> reservationOptional = reservationRepository.findById(id);
-		if (reservationOptional.isPresent()) {
-			reservationRepository.delete(reservationOptional.get());
-		} else {
-			throw new ResourceNotFoundException(" ResourceNotFoundException ");
 		}
 	}
 

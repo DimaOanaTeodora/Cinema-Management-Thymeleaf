@@ -19,38 +19,4 @@ public class UserServiceImpl implements UserService {
 		this.userRepository = userRepository;
 	}
 
-	public User createUser(User user) {
-		Optional<User> existingUserSameEmail = userRepository.findByUsername(user.getUsername());
-		existingUserSameEmail.ifPresent(e -> {
-			throw new  ResourceNotFoundException(" Duplicate user exception ");
-		});
-		return userRepository.save(user);
-	}
-
-	public User getUser(Integer id) {
-		Optional<User> userOptional = userRepository.findById(id);
-		if (userOptional.isPresent()) {
-			return userOptional.get();
-		} else {
-			throw new  ResourceNotFoundException(" ResourceNotFoundException ");
-		}
-	}
-
-	public void deleteUser(Integer id) {
-		Optional<User> userOptional = userRepository.findById(id);
-		if (userOptional.isPresent()) {
-			userRepository.delete(userOptional.get());
-		} else {
-			throw new ResourceNotFoundException(" ResourceNotFoundException ");
-		}
-	}
-
-	public List<Reservation> getReservationByUser(Integer id) {
-		Optional<User> userOptional = userRepository.findById(id);
-		if (userOptional.isPresent()) {
-			return userOptional.get().getReservations();
-		} else {
-			throw new  ResourceNotFoundException(" ResourceNotFoundException ");
-		}
-	}
 }

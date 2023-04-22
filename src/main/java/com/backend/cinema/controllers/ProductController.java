@@ -4,7 +4,6 @@ import com.backend.cinema.domain.Category;
 import com.backend.cinema.domain.Product;
 import com.backend.cinema.exceptions.ResourceNotFoundException;
 import com.backend.cinema.services.CategoryService;
-import com.backend.cinema.services.PhotoService;
 import com.backend.cinema.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +27,7 @@ public class ProductController {
     @Autowired
     CategoryService categoryService;
 
-    @Autowired
-    PhotoService photoService;
-
+   
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -91,8 +88,7 @@ public class ProductController {
         Product savedProduct;
         if (file.isEmpty())
             savedProduct = productService.save(product);
-        else
-            photoService.savePhotoFile(product, file);
+       
 
         return "redirect:/products" ;
     }

@@ -9,9 +9,5 @@ import com.backend.cinema.domain.Movie;
 
 public interface MovieService {
 
-	public Movie createMovie(Movie movie);
-
-	public Movie getMovie(Integer id);
-
-	public List<Movie> getAllMovies();
+	
 }

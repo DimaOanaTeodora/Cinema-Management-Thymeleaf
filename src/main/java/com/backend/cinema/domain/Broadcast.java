@@ -1,13 +1,6 @@
 package com.backend.cinema.domain;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.*;
-
-import com.backend.cinema.domain.security.Authority;
-import com.backend.cinema.domain.security.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,11 +21,10 @@ public class Broadcast {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne // (cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "room_id", nullable = false)
 	private Room room;
 
-	//@OneToOne // (cascade = CascadeType.ALL)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "movie_id", referencedColumnName = "id")
 	private Movie movie;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Add movie</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet"
+         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+         crossorigin="anonymous">
+      <link rel="stylesheet"
+         href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+         integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+         crossorigin="anonymous">
+   </head>
+   <body>
+      <div class="container my-5">
+      <h3>Add movie</h3>
+      <div class="card">
+         <div class="card-body">
+            <div class="col-md-10">
+               <form action="#" th:action="@{/movies/add}" th:object="${movie}"
+                  method="post">
+                  <div class="row">
+                     <div class="form-group col-md-8">
+                        <p>
+                           Select Movie Type 
+                           <select name="type">
+                              <option
+                                 th:each="typeOpt : ${T(com.backend.cinema.domain.MovieType).values()}"
+                                 th:value="${typeOpt}" th:text="${typeOpt}"></option>
+                           </select>
+                        </p>
+                        <div class="form-row">
+                           <p>
+                              Enter movie name <label th:if="${#fields.hasErrors('name')}"
+                                 th:errors="*{name}">Error</label> <input class="form-control"
+                                 th:field="*{name}" type="text" placeholder="movie name" />
+                           </p>
+                        </div>
+                        <div class="col-md-6">
+                           <input type="submit" class="btn btn-primary" value="Add movie">
+                        </div>
+                        <div class="form-group col-md-8"></div>
+                     </div>
+               </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

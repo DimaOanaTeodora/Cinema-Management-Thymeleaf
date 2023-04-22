@@ -20,25 +20,5 @@ public class RoomServiceImpl implements RoomService {
 		this.roomRepository = roomRepository;
 	}
 
-	public Room saveSeats(List<Seat> seats, Room room) {
-		room.setSeats(seats);
-		return roomRepository.save(room);
-	}
-
-	public Room createRoom(Room room) {
-		return roomRepository.save(room);
-	}
-
-	public Room getRoom(Integer id) {
-		Optional<Room> roomOptional = roomRepository.findById(id);
-		if (roomOptional.isPresent()) {
-			return roomOptional.get();
-		} else {
-			throw new  ResourceNotFoundException(" ResourceNotFoundException ");
-		}
-	}
 	
-	public List<Room> getAllRooms() {
-		return roomRepository.findAll();
-	}
 }

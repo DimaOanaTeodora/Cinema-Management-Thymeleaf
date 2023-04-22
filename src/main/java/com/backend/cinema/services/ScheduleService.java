@@ -8,8 +8,5 @@ import com.backend.cinema.domain.Schedule;
 
 public interface ScheduleService {
 
-	public Schedule updateSchedule(Schedule oldSchedule, Schedule newSchedule);
-
-	public Schedule getSchedule(Integer id);
 
 }

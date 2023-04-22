@@ -32,7 +32,6 @@ public class Reservation {
 	private Date dateRegistered;
 
 	@ManyToOne
-	//@JoinColumn(name = "user_id", nullable = false)
 	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
 
@@ -41,10 +40,10 @@ public class Reservation {
 			@JoinColumn(name = "seat_id") })
 	private List<Seat> reservedSeats;
 
-	@OneToOne//(cascade = CascadeType.ALL) 
+	@OneToOne
 	@JoinColumn(name = "broadcast_id", referencedColumnName = "id")
 	private Broadcast broadcast;
-	
+
 	@Transient
 	private List<Integer> seats;
 

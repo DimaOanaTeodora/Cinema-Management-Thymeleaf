@@ -3,8 +3,8 @@ package com.backend.cinema.domain;
 import java.util.List;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,13 +25,14 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Size(min = 2, message = "*The name is too short!")
+	@Size(max = 10, message = "*The name is too long (<=10 characters)!")
 	private String name;
+
 	@Enumerated(EnumType.STRING)
 	private MovieType type;
 
-	//@OneToOne(mappedBy = "movie")
 	@OneToMany(mappedBy = "movie")
-	//private Broadcast broadcast;
 	private List<Broadcast> broadcasts;
 
 }

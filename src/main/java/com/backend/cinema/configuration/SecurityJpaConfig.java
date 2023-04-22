@@ -1,6 +1,5 @@
 package com.backend.cinema.configuration;
 
-
 import com.backend.cinema.services.security.JpaUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,40 +17,27 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Profile("mysql")
 public class SecurityJpaConfig {
 
-    private final JpaUserDetailsService userDetailsService;
+	private final JpaUserDetailsService userDetailsService;
 
-    public SecurityJpaConfig(JpaUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+	public SecurityJpaConfig(JpaUserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeRequests(auth -> auth
-                        .antMatchers("/products").permitAll()
-                        .antMatchers("/auction").hasAnyRole()
-                        .antMatchers("/products/**").hasRole("ADMIN")
-                        .antMatchers("/products/form").hasRole("ADMIN")
-                                .antMatchers("/login").permitAll()
-                        //.anyRequest().authenticated()
-                )
-                .userDetailsService(userDetailsService)
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/access_denied")
-                .and()
-                .httpBasic(withDefaults())
-                .build();
-    }
-
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		return http.authorizeRequests(auth -> auth.antMatchers("/broadcasts").permitAll()
+				.antMatchers("/auction").hasAnyRole().antMatchers("/broadcasts/**").hasRole("ADMIN")
+				.antMatchers("/auction").hasAnyRole().antMatchers("/movies/**").hasRole("ADMIN")
+				.antMatchers("/movies/add").hasRole("ADMIN").antMatchers("/login").permitAll()
+				.antMatchers("/broadcasts/add").hasRole("ADMIN").antMatchers("/login").permitAll()
+		// .anyRequest().authenticated()
+		).userDetailsService(userDetailsService).formLogin().loginPage("/login").loginProcessingUrl("/perform_login")
+				.and().exceptionHandling().accessDeniedPage("/access_denied").and().httpBasic(withDefaults()).build();
+	}
 
 }
-

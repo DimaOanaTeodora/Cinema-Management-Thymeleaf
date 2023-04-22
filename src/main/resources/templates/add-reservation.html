@@ -1,96 +1,88 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Add Reservation</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-	crossorigin="anonymous">
-<!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
-</head>
-<body>
-	<div class="container my-5">
-		<h3>Add Reservation</h3>
-		<div class="card">
-			<div class="card-body">
-				<div class="col-md-10">
-					<form:form action="#" th:action="@{/reservations/add}"
-						th:object="${reservation}" method="post" >
-						<div class="row">
-
-
-							<div th:switch="${broadcasts}" class="container my-5">
-
-								<div class="col-md-10">
-									<h2 th:case="null">No broadcasts yet!</h2>
-									<div th:case="*">
-										<table class="table table-striped table-responsive-md">
-											<thead>
-												<tr>
-													<th>Id</th>
-													<th>Movie Name</th>
-													<th>Movie Type</th>
-													<th>Date</th>
-													<th>Starting hour</th>
-													<th>Ending hour</th>
-													<th>Room Name</th>
-													<th>List free seats</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr th:each="broadcast : ${broadcasts}">
-													<td th:text="${broadcast.id}"></td>
-													<td th:text="${broadcast.movie.name}"></td>
-													<td th:text="${broadcast.movie.type}"></td>
-													<td th:text="${broadcast.schedule.date}"></td>
-													<td th:text="${broadcast.schedule.startingHour}"></td>
-													<td th:text="${broadcast.schedule.endingHour}"></td>
-													<td th:text="${broadcast.room.name}"></td>
-													<td th:text="${broadcast.freeSeats}"></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-
-								</div>
-
-							</div>
-
-						</div>
-						<div class="row">
-							<p>
-								Select broadcast number <label for="broadcast"></label>
-							<div>
-								<select th:field="*{broadcast}">
-									<option th:each="broadcast : ${broadcasts}"
-										th:text="${broadcast.id}" th:value="${broadcast.id}">
-								</select>
-							</div>
-							</p>
-						</div>
-						
-						<p>Select seats
-						<ul>
-							<li th:each="checkboxValue: ${multiCheckboxAllValues}"><input
-								type="checkbox" th:field="*{id}" th:value="${checkboxValue.id}" />
-								<label th:for="${#ids.prev('id')}" th:text="${checkboxValue.id}"></label>
-							</li>
-						</ul>
-						</p>
-						
-						<input type="submit" class="btn btn-primary"
-							value="Add reservation">
-					</form:form>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Add Reservation</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet"
+         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+         crossorigin="anonymous">
+      <link rel="stylesheet"
+         href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+         integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+         crossorigin="anonymous">
+      <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
+   </head>
+   <body>
+      <div class="container my-5">
+         <h3>Add Reservation</h3>
+         <div class="card">
+            <div class="card-body">
+               <div class="col-md-10">
+                  <form action="#" th:action="@{/reservations/add}"
+                     th:object="${reservation}" method="post" >
+                     <div class="row">
+                        <div th:switch="${broadcasts}" class="container my-5">
+                           <div class="col-md-10">
+                              <h2 th:case="null">No broadcasts yet!</h2>
+                              <div th:case="*">
+                                 <table class="table table-striped table-responsive-md">
+                                    <thead>
+                                       <tr>
+                                          <th>Id</th>
+                                          <th>Movie Name</th>
+                                          <th>Movie Type</th>
+                                          <th>Date</th>
+                                          <th>Starting hour</th>
+                                          <th>Ending hour</th>
+                                          <th>Room Name</th>
+                                          <th>List free seats</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr th:each="broadcast : ${broadcasts}">
+                                          <td th:text="${broadcast.id}"></td>
+                                          <td th:text="${broadcast.movie.name}"></td>
+                                          <td th:text="${broadcast.movie.type}"></td>
+                                          <td th:text="${broadcast.schedule.date}"></td>
+                                          <td th:text="${broadcast.schedule.startingHour}"></td>
+                                          <td th:text="${broadcast.schedule.endingHour}"></td>
+                                          <td th:text="${broadcast.room.name}"></td>
+                                          <td th:text="${broadcast.freeSeats}"></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <p>
+                           Select broadcast number <label for="broadcast"></label>
+                        <div>
+                           <select th:field="*{broadcast}">
+                              <option th:each="broadcast : ${broadcasts}"
+                                 th:text="${broadcast.id}" th:value="${broadcast.id}">
+                           </select>
+                        </div>
+                        </p>
+                     </div>
+                     <p>Select seats
+                     <ul>
+                        <li th:each="checkboxValue: ${multiCheckboxAllValues}"><input
+                           type="checkbox" th:field="*{id}" th:value="${checkboxValue.id}" />
+                           <label th:for="${#ids.prev('id')}" th:text="${checkboxValue.id}"></label>
+                        </li>
+                     </ul>
+                     </p>
+                     <input type="submit" class="btn btn-primary"
+                        value="Add reservation">
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
 </html>

@@ -11,11 +11,5 @@ import com.backend.cinema.domain.Seat;
 
 public interface RoomService {
 
-	public Room saveSeats(List<Seat> seats, Room room);
-
-	public Room createRoom(Room room);
-
-	public Room getRoom(Integer id);
 	
-	public List<Room> getAllRooms();
 }

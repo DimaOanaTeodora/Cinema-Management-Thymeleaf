@@ -10,25 +10,22 @@ import java.util.Properties;
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {
 
-    @Bean(name="simpleMappingExceptionResolver")
-    public SimpleMappingExceptionResolver
-    getSimpleMappingExceptionResolver() {
-        SimpleMappingExceptionResolver r =
-                new SimpleMappingExceptionResolver();
+	@Bean(name = "simpleMappingExceptionResolver")
+	public SimpleMappingExceptionResolver getSimpleMappingExceptionResolver() {
+		SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
 
-        r.setDefaultErrorView("defaultException");
-        r.setExceptionAttribute("ex");     // default "exception"
+		r.setDefaultErrorView("defaultException");
+		r.setExceptionAttribute("ex"); // default "exception"
 
-        Properties mappings = new Properties();
-        mappings.setProperty("NumberFormatException", "numberFormatException");
-        r.setExceptionMappings(mappings);
+		Properties mappings = new Properties();
+		mappings.setProperty("NumberFormatException", "numberFormatException");
+		r.setExceptionMappings(mappings);
 
-        Properties statusCodes = new Properties();
-        statusCodes.setProperty("NumberFormatException", "400");
-        r.setStatusCodes(statusCodes);
+		Properties statusCodes = new Properties();
+		statusCodes.setProperty("NumberFormatException", "400");
+		r.setStatusCodes(statusCodes);
 
-
-        return r;
-    }
+		return r;
+	}
 
 }

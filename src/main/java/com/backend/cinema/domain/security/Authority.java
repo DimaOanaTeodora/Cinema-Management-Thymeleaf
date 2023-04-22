@@ -14,12 +14,12 @@ import javax.persistence.*;
 @Builder
 public class Authority {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
-    private String role;
+	private String role;
 
-    @ManyToMany(mappedBy = "authorities")
-    private Set<User> users;
+	@ManyToMany(mappedBy = "authorities")
+	private Set<User> users;
 }
