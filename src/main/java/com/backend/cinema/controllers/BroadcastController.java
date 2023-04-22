@@ -1,17 +1,25 @@
 package com.backend.cinema.controllers;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Product;
+import com.backend.cinema.exceptions.ResourceNotFoundException;
 import com.backend.cinema.repositories.BroadcastRepository;
 import com.backend.cinema.repositories.MovieRepository;
 import com.backend.cinema.repositories.RoomRepository;
@@ -41,10 +49,13 @@ public class BroadcastController {
 		model.addAttribute("schedules", scheduleRepository.findAll());
 		model.addAttribute("rooms", roomRepository.findAll());
 
-		Broadcast broadcast = broadcastRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid broadcast Id:" + id));
+		Optional<Broadcast> broadcast = broadcastRepository.findById(id);
+		if (!broadcast.isPresent()) {
 
-		model.addAttribute("broadcast", broadcast);
+			throw new ResourceNotFoundException("Broadcast " + id + " not found");
+		}
+
+		model.addAttribute("broadcast", broadcast.get());
 		return "update-broadcast";
 	}
 
@@ -76,6 +87,15 @@ public class BroadcastController {
 		broadcastRepository.save(broadcast);
 
 		return "redirect:/main";
+	}
+
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ModelAndView handlerNotFoundException(Exception exception) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.getModel().put("exception", exception);
+		modelAndView.setViewName("notFoundException");
+		return modelAndView;
 	}
 
 }

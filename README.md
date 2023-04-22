@@ -61,8 +61,38 @@ Documentatie
 
   }
   ```
-   - Tratarea exceptiilor 
-6. Se vor utiliza log-uri. Opțional aspecte.
+   - Tratarea exceptiilor - daca vreau sa editez o programare (broadcast) care nu exista redirectionare catre notFoundException.html (mesajul: 404 not found)
+``` Java
+public class BroadcastController {
+
+	....
+
+	@GetMapping("/edit/{id}")
+	public String showUpdateForm(@PathVariable("id") int id, Model model) {
+		...
+
+		Optional<Broadcast> broadcast = broadcastRepository.findById(id);
+		if (!broadcast.isPresent()) {
+
+			throw new ResourceNotFoundException("Broadcast " + id + " not found");
+		}
+
+		...
+	}
+
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ModelAndView handlerNotFoundException(Exception exception) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.getModel().put("exception", exception);
+		modelAndView.setViewName("notFoundException");
+		return modelAndView;
+	}
+	...
+
+}
+```
+1. Se vor utiliza log-uri. Opțional aspecte.
 ```
 2023-04-22 23:14:40.790  INFO 9848 --- [nio-8080-exec-6] c.b.cinema.configuration.LoggingAspect   : aspect log after List com.backend.cinema.services.ReservationServiceImpl.getAllReservationsByUsername(String)
 2023-04-22 23:14:40.790  INFO 9848 --- [nio-8080-exec-6] c.b.cinema.configuration.LoggingAspect   : aspect log after ModelAndView com.backend.cinema.controllers.MainController.getHome(Model)
@@ -91,8 +121,8 @@ public class LoggingAspect {
 	...
 }
 ```
-7. For fi utilizate opțiuni de paginarea și sortarea a datelor.
-8. Se va include Spring Security (cerința minima autentificare jdbc).
+1. For fi utilizate opțiuni de paginarea și sortarea a datelor.
+2. Se va include Spring Security (cerința minima autentificare jdbc).
 - Sistem de login si inregistrare
   ```html
    <body>
