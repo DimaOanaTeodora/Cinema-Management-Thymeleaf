@@ -32,7 +32,8 @@ public class Broadcast {
 	@JoinColumn(name = "room_id", nullable = false)
 	private Room room;
 
-	@OneToOne // (cascade = CascadeType.ALL)
+	//@OneToOne // (cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "movie_id", referencedColumnName = "id")
 	private Movie movie;
 

@@ -75,8 +75,34 @@ public class BroadcastController {
 		this.roomRepository = roomRepository;
 	}
 	
+	@GetMapping("/edit/{id}")
+	public String showUpdateForm(@PathVariable("id") int id, Model model) {
+		model.addAttribute("movies", movieRepository.findAll());
+		model.addAttribute("schedules", scheduleRepository.findAll());
+		model.addAttribute("rooms", roomRepository.findAll());
+		
+	    Broadcast broadcast = broadcastRepository.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid broadcast Id:" + id));
+	    
+	    model.addAttribute("broadcast", broadcast);
+	    return "update-broadcast";
+	}
 	
-	@RequestMapping("/edit/{id}")
+	@PostMapping("/update/{id}")
+	public String updateBroadcast(@PathVariable("id") int id, @Valid Broadcast broadcast, 
+	  BindingResult result, Model model) {
+	    if (result.hasErrors()) {
+	        broadcast.setId(id);
+	        return "update-broadcast";
+	    }
+	        
+	    broadcastRepository.save(broadcast);
+	    return "redirect:/";
+	}
+
+	
+	
+	/*@RequestMapping("/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
 		model.addAttribute("movies", movieRepository.findAll());
 		model.addAttribute("schedules", scheduleRepository.findAll());
@@ -100,7 +126,7 @@ public class BroadcastController {
 		System.out.println("------------After saving " + broadcast.getId());
 
 		return "redirect:/main";
-	}
+	}*/
 
 	@GetMapping("addBroadcast")
 	public String showAddBroadcastForm(Broadcast broadcast, Model model) {

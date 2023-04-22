@@ -1,5 +1,7 @@
 package com.backend.cinema.domain;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +29,9 @@ public class Movie {
 	@Enumerated(EnumType.STRING)
 	private MovieType type;
 
-	@OneToOne(mappedBy = "movie")
-	private Broadcast broadcast;
+	//@OneToOne(mappedBy = "movie")
+	@OneToMany(mappedBy = "movie")
+	//private Broadcast broadcast;
+	private List<Broadcast> broadcasts;
 
 }
