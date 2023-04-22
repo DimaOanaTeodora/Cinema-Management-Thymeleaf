@@ -24,4 +24,6 @@ public interface SeatService {
 	public Optional<Seat> getSeat(Integer id) ;
 
 	public List<Seat> createSeats(Room room) ;
+	
+	public List<Seat> getFreeSeatsForBrodcast(Broadcast broadcast);
 }

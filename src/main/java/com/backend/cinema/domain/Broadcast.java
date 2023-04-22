@@ -40,5 +40,5 @@ public class Broadcast {
 	@JoinColumn(name = "schedule_id", nullable = false)
 	private Schedule schedule;
 
-	
+	private String freeSeats;
 }

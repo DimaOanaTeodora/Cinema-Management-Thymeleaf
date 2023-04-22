@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.backend.cinema.repositories.BroadcastRepository;
 import com.backend.cinema.repositories.ReservationRepository;
 import com.backend.cinema.repositories.ScheduleRepository;
 import com.backend.cinema.repositories.security.UserRepository;
@@ -31,15 +32,17 @@ public class MainController {
 	private ReservationRepository reservationRepository;
 	private ReservationService reservationService;
 	private UserRepository userRepository;
+	private BroadcastRepository broadcastRepository;
 
 	@Autowired
 	public MainController(ScheduleRepository scheduleRepository, ReservationRepository reservationRepository,
-			ReservationService reservationService, UserRepository userRepository) {
+			ReservationService reservationService, UserRepository userRepository,  BroadcastRepository broadcastRepository) {
 
 		this.scheduleRepository = scheduleRepository;
 		this.reservationRepository = reservationRepository;
 		this.reservationService = reservationService;
 		this.userRepository = userRepository;
+		this.broadcastRepository = broadcastRepository;
 
 	}
 
@@ -53,7 +56,7 @@ public class MainController {
 			username = principal.toString();
 		}
 		model.addAttribute("user", scheduleRepository.findAll());
-		model.addAttribute("schedules", scheduleRepository.findAll());
+		model.addAttribute("broadcasts", broadcastRepository.findAll());
 		model.addAttribute("currentUser", username);
 		//model.addAttribute("reservations", reservationService.getAllReservationsByUsername(username));
 		return new ModelAndView("main");

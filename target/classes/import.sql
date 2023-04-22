@@ -20,3 +20,6 @@ INSERT INTO schedule (date, ending_hour, starting_hour) VALUES (STR_TO_DATE("05-
 INSERT INTO schedule (date, ending_hour, starting_hour) VALUES (STR_TO_DATE("03-07-2023", "%m-%d-%Y"), "10:00", "11:00");
 INSERT INTO schedule (date, ending_hour, starting_hour) VALUES (STR_TO_DATE("02-07-2023", "%m-%d-%Y"), "12:00", "14:00");
 
+INSERT INTO broadcast (movie_id, room_id, schedule_id) VALUES (1, 1, 1);
+INSERT INTO broadcast (movie_id, room_id, schedule_id) VALUES (2, 2, 1);
+
