@@ -1,10 +1,10 @@
-package com.awbd.lab5;
+package com.backend.cinema;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Lab5ApplicationTests {
+class CinemaApplicationTests {
 
 	@Test
 	void contextLoads() {

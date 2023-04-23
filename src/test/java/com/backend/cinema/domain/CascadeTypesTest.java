@@ -1,7 +1,7 @@
-package com.awbd.lab5.domain;
+package com.backend.cinema.domain;
 
 
-import jakarta.persistence.EntityManager;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +12,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Date;
 
 @DataJpaTest
 @ActiveProfiles("mysql")
@@ -25,29 +29,39 @@ public class CascadeTypesTest {
 
     @Test
     @Disabled
-    public void saveParticipant() {
-        Participant participant = new Participant();
-        participant.setFirstName("Will");
-        participant.setLastName("Snow");
-        Product product = new Product();
-        product.setName("Impression, Sunrise");
-        product.setReservePrice(300D);
-        product.setCode("PMON");
-        product.setSeller(participant);
-        participant.setProducts(Arrays.asList(product));
-        entityManager.persist(participant);
+    public void saveBroadcast() throws ParseException {
+        Broadcast broadcast = new Broadcast();
+        
+        Room room = new Room();
+        room.setCapacity(5);
+        room.setName("A1");
+        Schedule schedule = new Schedule();
+        schedule.setDate(new SimpleDateFormat("dd-MM-yyyy").parse("05-07-2023"));
+        schedule.setEndingHour(LocalTime.of(12, 12));
+        schedule.setStartingHour(LocalTime.of(10, 10));
+        
+        Movie movie = new Movie();
+        movie.setName("Avatar");
+        movie.setType(MovieType.D2);
+        
+        broadcast.setRoom(room);
+        broadcast.setMovie(movie);
+        broadcast.setSchedule(schedule);
+       
+        entityManager.persist(broadcast);
     }
 
 
     @Test
-    public void updateParticipant() {
-        Product product = entityManager.find(Product.class, 2L);
-        Participant participant = product.getSeller();
-        participant.setFirstName("William");
-        participant.getProducts().forEach(prod -> {
-            prod.setCurrency(Currency.USD);
-        });
-        entityManager.merge(participant);
+    public void updateBroadcast() {
+        Broadcast broadcast = entityManager.find(Broadcast.class, 1);
+        Movie movie = new Movie();
+        movie.setName("Titanic");
+        movie.setType(MovieType.D2);
+        
+        broadcast.setMovie(movie);
+        
+        entityManager.merge(broadcast);
 
 
         entityManager.flush();
@@ -55,18 +69,16 @@ public class CascadeTypesTest {
 
     @Test
     public void orphanRemoval() {
-        Product product = entityManager.find(Product.class, 1L);
-        product.setInfo(null);
-        entityManager.persist(product);
+        Movie movie = entityManager.find(Movie.class, 1);
+        entityManager.persist(movie);
         entityManager.flush();
     }
 
     @ParameterizedTest
-    @ValueSource(longs = {2, 3})
-    public void orphanRemoval(long id) {
-        Product product = entityManager.find(Product.class, id);
-        product.setInfo(null);
-        entityManager.persist(product);
+    @ValueSource(ints = {1, 1})
+    public void orphanRemoval(int id) {
+        Movie movie = entityManager.find(Movie.class, id);
+        entityManager.persist(movie);
         entityManager.flush();
     }
 

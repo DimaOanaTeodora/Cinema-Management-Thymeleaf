@@ -1,5 +1,6 @@
 # :cinema: Platforma pentru management-ul rezervarilor la cinema 
-Documentatie
+
+![DB schema](https://github.com/DimaOanaTeodora/AWBD/blob/main/app.png?raw=true)
 
 ### :clipboard:  Baza de date - entitati
 ![DB schema](https://github.com/DimaOanaTeodora/AWBD/blob/main/DB.png?raw=true)

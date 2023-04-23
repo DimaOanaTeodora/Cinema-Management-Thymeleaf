@@ -1,8 +1,8 @@
-package com.awbd.lab5;
+package com.backend.cinema;
 
-import com.awbd.lab5.domain.Currency;
-import com.awbd.lab5.domain.Product;
-import jakarta.persistence.EntityManager;
+import com.backend.cinema.domain.Room;
+import com.backend.cinema.domain.Broadcast;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,23 +19,25 @@ public class EntityManagerTest {
     private EntityManager entityManager;
 
     @Test
-    public void findProduct() {
+    public void findBroadcast() {
 
-        Product productFound = entityManager.find(Product.class, 1L);
+        Broadcast broadcastFound = entityManager.find(Broadcast.class, 1);
 
-        assertEquals(productFound.getCode(), "PCEZ");
+        assertEquals(broadcastFound.getMovie().getName(), "Avatar");
     }
 
     @Test
-    public void updateProduct() {
+    public void updateBroadcast() {
 
-        Product productFound = entityManager.find(Product.class, 1L);
-        productFound.setCurrency(Currency.EUR);
+    	Room roomFound = entityManager.find(Room.class, 1);
 
-        entityManager.persist(productFound);
+		Broadcast broadcastFound = entityManager.find(Broadcast.class, 1);
+		broadcastFound.setRoom(roomFound);
 
-        productFound = entityManager.find(Product.class, 1L);
-        assertEquals(Currency.EUR, productFound.getCurrency());
+		entityManager.persist(broadcastFound);
+
+		broadcastFound = entityManager.find(Broadcast.class, 1);
+		assertEquals(1, broadcastFound.getRoom().getId());
 
         entityManager.flush();
 

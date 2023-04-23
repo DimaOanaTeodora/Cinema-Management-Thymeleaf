@@ -1,7 +1,7 @@
-package com.awbd.lab5.services;
+package com.backend.cinema.services;
 
-import com.awbd.lab5.domain.Product;
-import com.awbd.lab5.repositories.ProductRepository;
+import com.backend.cinema.domain.Product;
+import com.backend.cinema.repositories.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
