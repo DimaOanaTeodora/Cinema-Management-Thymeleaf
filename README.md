@@ -1,9 +1,9 @@
 # :cinema: Platforma pentru management-ul rezervarilor la cinema 
 
-![Overview](https://github.com/DimaOanaTeodora/AWBD/blob/main/app.png?raw=true)
+![Overview](./app.png)
 
 ### :clipboard:  Baza de date - entitati
-![DB schema](https://github.com/DimaOanaTeodora/AWBD/blob/main/DB.png?raw=true)
+![DB schema](./DB.png)
 
 ## Aplicația va îndeplini cerințele următoare.
 :white_check_mark: Vor fi create relații între entități de toate tipurile: @OneToOne, @OneToMany, @ManyToOne, @ManyToMany.
@@ -48,7 +48,7 @@
    
 :white_check_mark: Utilizare unit-tests/integration tests.
 
-![Overview](https://github.com/DimaOanaTeodora/AWBD/blob/main/tests.png?raw=true)
+![Overview](./tests.png)
    
 :white_check_mark: Se vor valida datele din formulare, se vor trata excepțiile.
    - Validare date formular - la adaugarea unui film, validarea numelui

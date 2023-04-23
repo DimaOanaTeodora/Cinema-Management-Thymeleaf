@@ -65,7 +65,7 @@ public class ReservationServiceImpl implements ReservationService {
 		List<Seat> reservedSeats = new ArrayList<Seat>();
 		for (Seat s : reservation.getReservedSeats()) {
 			for (Seat ss : allSeats) {
-				if (ss.getId() == s.getId()) {
+				if (ss.getNumber() == s.getNumber()) {
 					reservedSeats.add(ss);
 					break;
 				}
