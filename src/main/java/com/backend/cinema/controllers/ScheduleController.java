@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.Schedule;
 import com.backend.cinema.repositories.ScheduleRepository;
+import com.backend.cinema.services.ScheduleService;
 
 @Controller
 @RequestMapping("/schedules/")
 public class ScheduleController {
 
+	private ScheduleService scheduleService;
 	private ScheduleRepository scheduleRepository;
 
 	@Autowired
-	public ScheduleController(ScheduleRepository scheduleRepository) {
+	public ScheduleController(ScheduleService scheduleService, ScheduleRepository scheduleRepository) {
 
+		this.scheduleService = scheduleService;
 		this.scheduleRepository = scheduleRepository;
 
 	}
@@ -48,7 +51,7 @@ public class ScheduleController {
 			return "update-schedule";
 		}
 
-		scheduleRepository.save(schedule);
+		scheduleService.create(schedule);
 
 		return "redirect:/main";
 	}

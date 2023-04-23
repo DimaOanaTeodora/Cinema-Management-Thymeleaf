@@ -18,29 +18,31 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.backend.cinema.domain.Broadcast;
-import com.backend.cinema.domain.Product;
 import com.backend.cinema.exceptions.ResourceNotFoundException;
 import com.backend.cinema.repositories.BroadcastRepository;
 import com.backend.cinema.repositories.MovieRepository;
 import com.backend.cinema.repositories.RoomRepository;
 import com.backend.cinema.repositories.ScheduleRepository;
+import com.backend.cinema.services.BroadcastService;
 
 @Controller
 @RequestMapping("/broadcasts/")
 public class BroadcastController {
 
 	private BroadcastRepository broadcastRepository;
+	private BroadcastService broadcastService;
 	private MovieRepository movieRepository;
 	private ScheduleRepository scheduleRepository;
 	private RoomRepository roomRepository;
 
 	@Autowired
 	public BroadcastController(BroadcastRepository broadcastRepository, MovieRepository movieRepository,
-			ScheduleRepository scheduleRepository, RoomRepository roomRepository) {
+			ScheduleRepository scheduleRepository, RoomRepository roomRepository, BroadcastService broadcastService) {
 		this.broadcastRepository = broadcastRepository;
 		this.movieRepository = movieRepository;
 		this.scheduleRepository = scheduleRepository;
 		this.roomRepository = roomRepository;
+		this.broadcastService = broadcastService;
 	}
 
 	@GetMapping("/edit/{id}")
@@ -67,7 +69,8 @@ public class BroadcastController {
 			return "update-broadcast";
 		}
 
-		broadcastRepository.save(broadcast);
+		broadcastService.update(broadcast);
+
 		return "redirect:/";
 	}
 
@@ -84,7 +87,7 @@ public class BroadcastController {
 		if (result.hasErrors()) {
 			return "add-broadcast";
 		}
-		broadcastRepository.save(broadcast);
+		broadcastService.create(broadcast);
 
 		return "redirect:/main";
 	}

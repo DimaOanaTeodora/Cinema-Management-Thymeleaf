@@ -13,7 +13,9 @@ import com.backend.cinema.domain.security.User;
 
 public interface ReservationService {
 	
+	public void delete(int id);
 	
+	public void create(Reservation reservation);
 	
 	public List<Reservation> getAllReservationsByUsername(String username);
 

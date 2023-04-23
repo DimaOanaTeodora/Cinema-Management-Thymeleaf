@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.backend.cinema.configuration.Log;
-import com.backend.cinema.domain.Category;
 import com.backend.cinema.domain.Movie;
 import com.backend.cinema.domain.MovieType;
 import com.backend.cinema.repositories.MovieRepository;

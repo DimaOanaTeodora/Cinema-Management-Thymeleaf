@@ -1,6 +1,5 @@
 package com.backend.cinema.controllers;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,12 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.backend.cinema.configuration.Log;
-import com.backend.cinema.domain.security.Authority;
 import com.backend.cinema.domain.security.User;
-import com.backend.cinema.repositories.security.AuthorityRepository;
 import com.backend.cinema.repositories.security.UserRepository;
-
-import org.springframework.web.bind.annotation.*;
+import com.backend.cinema.services.UserService;
 
 import javax.validation.Valid;
 
@@ -24,16 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RequestMapping("/users/")
 public class UserController {
 
+	private UserService userService;
 	private UserRepository userRepository;
-	private AuthorityRepository authorityRepository;
-	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public UserController(UserRepository userRepository, AuthorityRepository authorityRepository,
-			PasswordEncoder passwordEncoder) {
+	public UserController(UserService userService, UserRepository userRepository) {
+		this.userService = userService;
 		this.userRepository = userRepository;
-		this.authorityRepository = authorityRepository;
-		this.passwordEncoder = passwordEncoder;
+
 	}
 
 	@Log
@@ -55,33 +49,9 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "add-user";
 		}
+		userService.create(user);
 
-		Authority adminRole = authorityRepository.save(Authority.builder().role("ROLE_ADMIN").build());
-
-		User newUser = User.builder().username(user.getUsername()).password(passwordEncoder.encode(user.getPassword()))
-				.authority(adminRole).build();
-
-		userRepository.save(newUser);
 		return "redirect:list";
-	}
-
-	@Log
-	@GetMapping("edit/{username}")
-	public String showUpdateForm(@PathVariable("username") String username, Model model) {
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user Username:" + username));
-		model.addAttribute("user", user);
-		return "update-user";
-	}
-
-	@Log
-	@GetMapping("delete/{username}")
-	public String deleteUser(@PathVariable("username") String username, Model model) {
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user Username:" + username));
-		userRepository.delete(user);
-		model.addAttribute("users", userRepository.findAll());
-		return "main";
 	}
 
 }
