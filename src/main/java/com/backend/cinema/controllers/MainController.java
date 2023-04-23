@@ -70,7 +70,6 @@ public class MainController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			username = authentication.getName();
-			System.out.println("---------- current logged user is " + username);
 		}
 
 		model.addAttribute("user", scheduleRepository.findAll());
@@ -83,7 +82,6 @@ public class MainController {
 		model.addAttribute("currentUser", username);
 
 		if (username != null && !userRepository.findByUsername(username).isEmpty()) {
-			System.out.println("---------- current not empty " + username);
 			model.addAttribute("reservations", reservationService.getAllReservationsByUsername(username));
 		}
 
@@ -112,7 +110,6 @@ public class MainController {
 		model.addAttribute("currentUser", username);
 
 		if (username != null && !userRepository.findByUsername(username).isEmpty()) {
-			System.out.println("---------- current not empty " + username);
 			model.addAttribute("reservations", reservationService.getAllReservationsByUsername(username));
 		}
 		return new ModelAndView("main");

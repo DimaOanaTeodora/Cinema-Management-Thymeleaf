@@ -130,8 +130,20 @@ public class ReservationController {
 		}
 
 		reservation.setDateRegistered(new Date());
-
-		reservation.setNoPersons(reservation.getReservedSeats().size());
+		
+		Broadcast broadcast = reservation.getBroadcast();
+		List<Seat> allSeats = broadcast.getRoom().getSeats();
+		List<Seat> reservedSeats = new ArrayList<Seat>();
+		for(Seat s : reservation.getReservedSeats()) {
+			for(Seat ss : allSeats) {
+				if(ss.getId() == s.getId()) {
+					reservedSeats.add(ss);
+					break;
+				}
+			}
+		}
+		reservation.setReservedSeats(reservedSeats);
+		reservation.setNoPersons(reservedSeats.size());
 
 		reservation = reservationRepository.save(reservation);
 
