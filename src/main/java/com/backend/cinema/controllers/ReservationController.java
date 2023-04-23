@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.backend.cinema.configuration.Log;
 import com.backend.cinema.domain.Broadcast;
+import com.backend.cinema.domain.Category;
 import com.backend.cinema.domain.Reservation;
 import com.backend.cinema.domain.Seat;
 import com.backend.cinema.domain.security.User;
@@ -82,14 +83,21 @@ public class ReservationController {
 		}
 		model.addAttribute("broadcasts", broadcasts);
 
-		model.addAttribute("multiCheckboxAllValues", getMultiCheckboxAllValues());
+		List<Seat> seats = new ArrayList<Seat>();
+		for (int i = 1; i <= 5; i++) {
+			Seat s = new Seat();
+			s.setId(i);
+			s.setNumber(i);
+			seats.add(s);
+		}
+
+		model.addAttribute("categoriesAll", seats);
 
 		String username = null;
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			username = authentication.getName();
-			System.out.println("---------- reservation controller current logged user is " + username);
 		}
 
 		Optional<User> currentUser = userRepository.findByUsername(username);
@@ -111,13 +119,10 @@ public class ReservationController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			username = authentication.getName();
-			System.out.println("---------- 2 reservation controller current logged user is " + username);
 		}
 
 		Optional<User> currentUser = userRepository.findByUsername(username);
 		if (!currentUser.isEmpty()) {
-			System.out
-					.println("---------- 2 reservation controller current user is " + currentUser.get().getUsername());
 			reservation.setUser(currentUser.get());
 
 		} else {
@@ -126,9 +131,7 @@ public class ReservationController {
 
 		reservation.setDateRegistered(new Date());
 
-		System.out.println("---------- 2 LOG " + reservation.getSeats().size());
-
-		reservation.setNoPersons(2);
+		reservation.setNoPersons(reservation.getReservedSeats().size());
 
 		reservation = reservationRepository.save(reservation);
 

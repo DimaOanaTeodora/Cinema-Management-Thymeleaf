@@ -44,7 +44,4 @@ public class Reservation {
 	@JoinColumn(name = "broadcast_id", referencedColumnName = "id")
 	private Broadcast broadcast;
 
-	@Transient
-	private List<Integer> seats;
-
 }

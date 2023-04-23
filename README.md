@@ -2,7 +2,7 @@
 Documentatie
 
 ### :clipboard:  Baza de date - entitati
-![DB schema](https://github.com/DimaOanaTeodora/Cinema-Management-Backend/blob/main/DB.png?raw=true)
+![DB schema](https://github.com/DimaOanaTeodora/AWBD/blob/main/DB.png?raw=true)
 
 ## Aplicația va îndeplini cerințele următoare.
 :white_check_mark: Vor fi create relații între entități de toate tipurile: @OneToOne, @OneToMany, @ManyToOne, @ManyToMany.

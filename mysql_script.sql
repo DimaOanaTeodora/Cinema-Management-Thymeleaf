@@ -8,6 +8,8 @@ select * from schedule;
 select * from seat;
 select * from movie;
 select * from reserved_seat;
+select * from authority;
+select * from user_authority;
 
 INSERT INTO movie (name, type) VALUES ("Avatar", "D3");
 INSERT INTO movie (name, type) VALUES ("Motanul incaltat", "D2");
