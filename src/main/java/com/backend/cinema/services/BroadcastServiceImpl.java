@@ -22,9 +22,9 @@ public class BroadcastServiceImpl implements BroadcastService {
 	}
 
 	@Log
-	public void create(Broadcast broadcast) {
+	public Broadcast create(Broadcast broadcast) {
 
-		broadcastRepository.save(broadcast);
+		return broadcastRepository.save(broadcast);
 	}
 
 	@Log

@@ -1,6 +1,6 @@
 # :cinema: Platforma pentru management-ul rezervarilor la cinema 
 
-![DB schema](https://github.com/DimaOanaTeodora/AWBD/blob/main/app.png?raw=true)
+![Overview](https://github.com/DimaOanaTeodora/AWBD/blob/main/app.png?raw=true)
 
 ### :clipboard:  Baza de date - entitati
 ![DB schema](https://github.com/DimaOanaTeodora/AWBD/blob/main/DB.png?raw=true)
@@ -46,7 +46,9 @@
    
 :ballot_box_with_check: Se va testa aplicația folosindu-se profiluri și două baze de date diferite, una dintre ele pentru etapa de testare. Se poate utiliza și o bază de date in-memory (H2).
    
-:ballot_box_with_check: Utilizare unit-tests/integration tests.
+:white_check_mark: Utilizare unit-tests/integration tests.
+
+![Overview](https://github.com/DimaOanaTeodora/AWBD/blob/main/tests.png?raw=true)
    
 :white_check_mark: Se vor valida datele din formulare, se vor trata excepțiile.
    - Validare date formular - la adaugarea unui film, validarea numelui

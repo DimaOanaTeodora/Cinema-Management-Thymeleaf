@@ -26,7 +26,7 @@ public class EntityManagerMySqlTest {
 
 		Broadcast broadcastFound = entityManager.find(Broadcast.class, 1);
 
-		assertEquals(broadcastFound.getMovie().getName(), "Avatar");
+		assertEquals(broadcastFound.getMovie().getName(), "Titanic");
 	}
 
 	@Test

@@ -6,7 +6,7 @@ import com.backend.cinema.domain.Broadcast;
 
 public interface BroadcastService {
 
-	public void create (Broadcast broadcast);
+	public Broadcast create (Broadcast broadcast);
 	
 	public void update (Broadcast broadcast);
 	
